@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.applications.jay_letheby.jaycad.R;
 
@@ -18,7 +19,7 @@ import com.applications.jay_letheby.jaycad.R;
  * Use the {@link MainFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -27,6 +28,12 @@ public class MainFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Button conversionBtn;
+    private Button angleConversionBtn;
+    private Button angleAddSubBtn;
+    private Button bakeryFinderBtn;
+    private Button aboutBtn;
 
     private MainFragmentInteractionListener mListener;
 
@@ -64,8 +71,23 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+
+        // Fragment Buttons
+        conversionBtn = (Button)view.findViewById(R.id.conversionsBtn);
+        angleConversionBtn = (Button)view.findViewById(R.id.angleConversionBtn);
+        angleAddSubBtn = (Button)view.findViewById(R.id.angleAddSubBtn);
+        bakeryFinderBtn = (Button)view.findViewById(R.id.bakeryFinderBtn);
+        aboutBtn = (Button)view.findViewById(R.id.aboutBtn);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        
     }
 
     // TODO: Rename method, update argument and hook method into UI event
