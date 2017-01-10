@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.applications.jay_letheby.jaycad.Activities.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:background="#37469F"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/top_banner"
+            android:layout_weight="1" />
+
+    </android.support.v7.widget.Toolbar>
 
     <FrameLayout
 
@@ -12,6 +29,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/fragment_container"
-        tools:context=".activities.MainActivity">
+        tools:context=".activities.MainActivity"
+        android:background="@drawable/jaycad_bg_gradient2">
     </FrameLayout>
-</RelativeLayout>
+</LinearLayout>

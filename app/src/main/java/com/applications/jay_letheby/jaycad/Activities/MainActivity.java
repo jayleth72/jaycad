@@ -8,10 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.Activity;
 
+import com.applications.jay_letheby.jaycad.Fragments.ConversionsMenuFragment;
 import com.applications.jay_letheby.jaycad.Fragments.MainFragment;
 import com.applications.jay_letheby.jaycad.R;
 
-public class MainActivity extends AppCompatActivity implements MainFragment.MainFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements MainFragment.MainFragmentInteractionListener, ConversionsMenuFragment.ConversionsMenuInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +29,19 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Main
         }
     }
 
+    public void loadConversionsMenuScreen() {
+
+        ConversionsMenuFragment conversionsMenuFragment = new ConversionsMenuFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, conversionsMenuFragment).addToBackStack(null).commit();
+    }
+
     @Override
     public void onMainFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onConversionsMenuInteraction(Uri uri) {
 
     }
 }
