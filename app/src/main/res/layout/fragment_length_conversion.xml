@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.applications.jay_letheby.jaycad.Fragments.ConversionsMenuFragment">
-
+    tools:context="com.applications.jay_letheby.jaycad.Fragments.LengthConversionFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,39 +11,16 @@
 
 
         <TextView
-            android:text="conversions menu"
+            android:text="Length Conversion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView"
-            tools:text="Conversions Menu"
+            tools:text="Length Conversion"
             android:textAlignment="center"
             android:textSize="35sp"
             android:textColor="#FFF"
             android:paddingTop="10dp"
             android:paddingBottom="10dp" />
-
-        <Button
-            android:text="length conversion"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:id="@+id/lengthConversionsBtn"
-            android:textSize="24sp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/jaycad_menu_button"
-            android:textColor="#FFCC00"
-            android:layout_marginTop="15dp" />
-
-
-        <Button
-            android:text="area conversion"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:id="@+id/AreaConversionBtn"
-            android:textSize="24sp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/jaycad_menu_button"
-            android:textColor="#FFCC00"
-            android:layout_marginTop="15dp" />
 
         <Button
             android:text="main menu"
@@ -59,4 +35,5 @@
 
 
     </LinearLayout>
+
 </FrameLayout>

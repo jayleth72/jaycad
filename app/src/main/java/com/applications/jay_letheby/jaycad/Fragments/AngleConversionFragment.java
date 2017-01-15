@@ -9,19 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-
 import com.applications.jay_letheby.jaycad.Activities.MainActivity;
 import com.applications.jay_letheby.jaycad.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MainFragment.MainFragmentInteractionListener} interface
+ * {@link AngleConversionFragment.AngleConversionInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MainFragment#newInstance} factory method to
+ * Use the {@link AngleConversionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MainFragment extends Fragment implements View.OnClickListener {
+public class AngleConversionFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,15 +30,11 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private String mParam1;
     private String mParam2;
 
-    private Button conversionBtn;
-    private Button angleConversionBtn;
-    private Button angleAddSubBtn;
-    private Button bakeryFinderBtn;
-    private Button aboutBtn;
+    private Button mainMenuBtn;
 
-    private MainFragmentInteractionListener mListener;
+    private AngleConversionInteractionListener mListener;
 
-    public MainFragment() {
+    public AngleConversionFragment() {
         // Required empty public constructor
     }
 
@@ -49,11 +44,11 @@ public class MainFragment extends Fragment implements View.OnClickListener {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MainFragment.
+     * @return A new instance of fragment AngleConversionFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MainFragment newInstance(String param1, String param2) {
-        MainFragment fragment = new MainFragment();
+    public static AngleConversionFragment newInstance(String param1, String param2) {
+        AngleConversionFragment fragment = new AngleConversionFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -74,59 +69,34 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-
-        // Fragment Buttons
-        conversionBtn = (Button)view.findViewById(R.id.conversionsBtn);
-        angleConversionBtn = (Button)view.findViewById(R.id.angleConversionBtn);
-        angleAddSubBtn = (Button)view.findViewById(R.id.angleAddSubBtn);
-        bakeryFinderBtn = (Button)view.findViewById(R.id.bakeryFinderBtn);
-        aboutBtn = (Button)view.findViewById(R.id.aboutBtn);
-
-        //Set Button Listeners
-        conversionBtn.setOnClickListener(this);
-        angleConversionBtn.setOnClickListener(this);
-        angleAddSubBtn.setOnClickListener(this);
-        bakeryFinderBtn.setOnClickListener(this);
-        aboutBtn.setOnClickListener(this);
-
         // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_angle_conversion, container, false);
+
+        mainMenuBtn = (Button)view.findViewById(R.id.mainMenuBtn);
+
+        mainMenuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Return to the main menu
+                MainActivity mainActivity = (MainActivity)getActivity();
+                mainActivity.loadMainMenuScreen();
+            }
+        });
         return view;
-    }
-
-    @Override
-    public void onClick(View view) {
-
-        MainActivity mainActivity = (MainActivity)getActivity();
-        Button chosenBtn = (Button)view;
-
-        if (chosenBtn == conversionBtn){
-            mainActivity.loadConversionsMenuScreen();
-        } else if (chosenBtn == angleConversionBtn) {
-            mainActivity.loadAngleConversionScreen();
-        } else if (chosenBtn == angleAddSubBtn) {
-            mainActivity.loadAngleAddSubtractScreen();
-        } else if (chosenBtn == bakeryFinderBtn) {
-            mainActivity.loadBakeryFinderScreen();
-        } else if (chosenBtn == aboutBtn) {
-            mainActivity.loadAboutScreen();
-        }
-
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onMainFragmentInteraction(uri);
+            mListener.onAngleConversionInteraction(uri);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof MainFragmentInteractionListener) {
-            mListener = (MainFragmentInteractionListener) context;
+        if (context instanceof AngleConversionInteractionListener) {
+            mListener = (AngleConversionInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -149,8 +119,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface MainFragmentInteractionListener {
-
-        void onMainFragmentInteraction(Uri uri);
+    public interface AngleConversionInteractionListener {
+        // TODO: Update argument type and name
+        void onAngleConversionInteraction(Uri uri);
     }
 }

@@ -9,19 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-
 import com.applications.jay_letheby.jaycad.Activities.MainActivity;
 import com.applications.jay_letheby.jaycad.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MainFragment.MainFragmentInteractionListener} interface
+ * {@link AngleAddSubtractFragment.AngleAddSubtractFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MainFragment#newInstance} factory method to
+ * Use the {@link AngleAddSubtractFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MainFragment extends Fragment implements View.OnClickListener {
+public class AngleAddSubtractFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,15 +30,11 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private String mParam1;
     private String mParam2;
 
-    private Button conversionBtn;
-    private Button angleConversionBtn;
-    private Button angleAddSubBtn;
-    private Button bakeryFinderBtn;
-    private Button aboutBtn;
+    private Button mainMenuBtn;
 
-    private MainFragmentInteractionListener mListener;
+    private AngleAddSubtractFragmentInteractionListener mListener;
 
-    public MainFragment() {
+    public AngleAddSubtractFragment() {
         // Required empty public constructor
     }
 
@@ -49,11 +44,11 @@ public class MainFragment extends Fragment implements View.OnClickListener {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MainFragment.
+     * @return A new instance of fragment AngleAddSubtractFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MainFragment newInstance(String param1, String param2) {
-        MainFragment fragment = new MainFragment();
+    public static AngleAddSubtractFragment newInstance(String param1, String param2) {
+        AngleAddSubtractFragment fragment = new AngleAddSubtractFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -74,62 +69,37 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_angle_add_subtract, container, false);
 
-        // Fragment Buttons
-        conversionBtn = (Button)view.findViewById(R.id.conversionsBtn);
-        angleConversionBtn = (Button)view.findViewById(R.id.angleConversionBtn);
-        angleAddSubBtn = (Button)view.findViewById(R.id.angleAddSubBtn);
-        bakeryFinderBtn = (Button)view.findViewById(R.id.bakeryFinderBtn);
-        aboutBtn = (Button)view.findViewById(R.id.aboutBtn);
-
-        //Set Button Listeners
-        conversionBtn.setOnClickListener(this);
-        angleConversionBtn.setOnClickListener(this);
-        angleAddSubBtn.setOnClickListener(this);
-        bakeryFinderBtn.setOnClickListener(this);
-        aboutBtn.setOnClickListener(this);
+        mainMenuBtn = (Button)view.findViewById(R.id.mainMenuBtn);
+        mainMenuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Load Main Menu Screen
+                MainActivity mainActivity = (MainActivity)getActivity();
+                mainActivity.loadMainMenuScreen();
+            }
+        });
 
         // Inflate the layout for this fragment
         return view;
     }
 
-    @Override
-    public void onClick(View view) {
-
-        MainActivity mainActivity = (MainActivity)getActivity();
-        Button chosenBtn = (Button)view;
-
-        if (chosenBtn == conversionBtn){
-            mainActivity.loadConversionsMenuScreen();
-        } else if (chosenBtn == angleConversionBtn) {
-            mainActivity.loadAngleConversionScreen();
-        } else if (chosenBtn == angleAddSubBtn) {
-            mainActivity.loadAngleAddSubtractScreen();
-        } else if (chosenBtn == bakeryFinderBtn) {
-            mainActivity.loadBakeryFinderScreen();
-        } else if (chosenBtn == aboutBtn) {
-            mainActivity.loadAboutScreen();
-        }
-
-
-    }
-
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onMainFragmentInteraction(uri);
+            mListener.onAngleAddSubtractFragmentInteraction(uri);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof MainFragmentInteractionListener) {
-            mListener = (MainFragmentInteractionListener) context;
+        if (context instanceof AngleAddSubtractFragmentInteractionListener) {
+            mListener = (AngleAddSubtractFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement AngleAddSubtractFragmentInteractionListener");
         }
     }
 
@@ -149,8 +119,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface MainFragmentInteractionListener {
+    public interface AngleAddSubtractFragmentInteractionListener {
 
-        void onMainFragmentInteraction(Uri uri);
+        void onAngleAddSubtractFragmentInteraction(Uri uri);
     }
 }
