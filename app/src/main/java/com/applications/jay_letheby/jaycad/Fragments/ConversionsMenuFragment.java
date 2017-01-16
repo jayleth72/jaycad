@@ -20,7 +20,7 @@ import com.applications.jay_letheby.jaycad.R;
  * Use the {@link ConversionsMenuFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ConversionsMenuFragment extends Fragment {
+public class ConversionsMenuFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +30,10 @@ public class ConversionsMenuFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private Button lengthConversionBtn;
     private Button mainMenuBtn;
+    private Button areaConversionBtn;
+
     private ConversionsMenuInteractionListener mListener;
 
     public ConversionsMenuFragment() {
@@ -72,17 +75,25 @@ public class ConversionsMenuFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_conversions_menu, container, false);
 
         mainMenuBtn = (Button)view.findViewById(R.id.mainMenuBtn);
+        lengthConversionBtn = (Button)view.findViewById(R.id.lengthConversionsBtn);
+        areaConversionBtn = (Button)view.findViewById(R.id.AreaConversionBtn);
 
-        mainMenuBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Return to the main menu
-                MainActivity mainActivity = (MainActivity)getActivity();
-                mainActivity.loadMainMenuScreen();
-            }
-        });
+        areaConversionBtn.setOnClickListener(this);
+        mainMenuBtn.setOnClickListener(this);
+        lengthConversionBtn.setOnClickListener(this);
 
         return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        MainActivity mainActivity = (MainActivity)getActivity();
+        Button chosenBtn = (Button)view;
+
+        // Load Fragment according to which button is pressed in the Main Menu
+        mainActivity.loadFragment(chosenBtn.getText().toString().toLowerCase());
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
