@@ -23,6 +23,49 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp" />
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/degreeTxt"
+                android:layout_weight="1"
+                android:text="40"
+                android:background="@drawable/edit_text_border"
+                android:textColor="@color/colorEditText"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="15dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/minTxt"
+                android:layout_weight="1"
+                android:text="40"
+                android:background="@drawable/edit_text_border"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/colorEditText" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/secTxt"
+                android:layout_weight="1"
+                android:text="30"
+                android:background="@drawable/edit_text_border"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/colorEditText" />
+        </LinearLayout>
+
         <Button
             android:text="main menu"
             android:layout_width="300dp"
