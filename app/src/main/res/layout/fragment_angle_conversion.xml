@@ -44,7 +44,7 @@
                 android:id="@+id/textView4"
                 android:layout_weight="1"
                 android:textSize="20sp"
-                android:layout_marginLeft="15dp" />
+                android:layout_marginLeft="16dp" />
 
             <TextView
                 android:text="SECONDS"
@@ -90,7 +90,7 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:ems="10"
                 android:id="@+id/degreesSecondsTxt"
                 android:layout_weight="1"
