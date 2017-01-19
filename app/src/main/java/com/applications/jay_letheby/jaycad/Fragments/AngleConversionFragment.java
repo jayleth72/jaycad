@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.applications.jay_letheby.jaycad.Activities.MainActivity;
 import com.applications.jay_letheby.jaycad.R;
@@ -20,7 +21,7 @@ import com.applications.jay_letheby.jaycad.R;
  * Use the {@link AngleConversionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AngleConversionFragment extends Fragment {
+public class AngleConversionFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +31,14 @@ public class AngleConversionFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private Button convertBtn;
+    private Button clearBtn;
     private Button mainMenuBtn;
+
+    private EditText degreesTxt;
+    private EditText degreesMinutesTxt;
+    private EditText degreesSecondTxt;
+    private EditText degreesDecimalTxt;
 
     private AngleConversionInteractionListener mListener;
 
@@ -72,7 +80,16 @@ public class AngleConversionFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_angle_conversion, container, false);
 
+        // Initialise Buttons
+        convertBtn = (Button)view.findViewById(R.id.convertBtn);
+        clearBtn = (Button)view.findViewById(R.id.clearBtn);
         mainMenuBtn = (Button)view.findViewById(R.id.mainMenuBtn);
+
+        //Initilise TextFields
+        degreesTxt = (EditText)view.findViewById(R.id.degreeTxt);
+        degreesMinutesTxt = (EditText)view.findViewById(R.id.degreesMinTxt);
+        degreesSecondTxt = (EditText)view.findViewById(R.id.degreesSecondsTxt);
+        degreesDecimalTxt = (EditText)view.findViewById(R.id.decimalDegreesTxt);
 
         mainMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +99,68 @@ public class AngleConversionFragment extends Fragment {
                 mainActivity.loadMainMenuScreen();
             }
         });
+
+        convertBtn.setOnClickListener(this);
+        clearBtn.setOnClickListener(this);
+
         return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        Button chosenBtn = (Button)view;
+
+        // Load Fragment according to which button is pressed in the Main Menu
+        if (chosenBtn == convertBtn){
+            convertAngle();
+        } else if (clearBtn == clearBtn){
+            clearTextFields();
+        }
+
+    }
+
+    public void convertAngle(){
+
+        String degrees = degreesTxt.getText().toString().trim();
+        String minutes = degreesMinutesTxt.getText().toString().trim();
+        String seconds = degreesSecondTxt.getText().toString().trim();
+        String decimalDegrees = degreesDecimalTxt.getText().toString().trim();
+
+        if (degrees.length() > 0 | minutes.length() > 0 | seconds.length() > 0) {
+            convertDegMinSecToDecimal(degrees, minutes, seconds);
+        }
+    }
+
+
+    public void convertDegMinSecToDecimal (String degrees, String minutes, String seconds){
+
+        // Check data entered is numbers just in case
+        try{
+            double deg = Double.parseDouble(degrees);
+            double min = Double.parseDouble(minutes);
+            double sec = Double.parseDouble(seconds);
+
+            double decimalDegrees = deg + (min/60) + (sec/3600);
+            degreesDecimalTxt.setText((decimalDegrees + ""));
+
+        } catch (NumberFormatException e) {
+            // not an integer!
+            degreesDecimalTxt.setText("0");
+        }
+
+    }
+
+    public void convertDecimaltoDegMinSec() {
+
+    }
+
+    public void clearTextFields (){
+
+        degreesTxt.setText("");
+        degreesMinutesTxt.setText("");
+        degreesSecondTxt.setText("");
+        degreesDecimalTxt.setText("");
     }
 
     // TODO: Rename method, update argument and hook method into UI event

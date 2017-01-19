@@ -25,7 +25,7 @@
             android:paddingBottom="10dp" />
 
         <Button
-            android:text="conversions"
+            android:text="Conversions"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:id="@+id/conversionsBtn"
@@ -37,7 +37,7 @@
 
 
         <Button
-            android:text="angle conversion"
+            android:text="Angle conversion"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:id="@+id/angleConversionBtn"
@@ -48,7 +48,7 @@
             android:layout_marginTop="15dp" />
 
         <Button
-            android:text="angle add/subtract"
+            android:text="Angle add/subtract"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:id="@+id/angleAddSubBtn"
@@ -70,7 +70,7 @@
             android:layout_marginTop="15dp" />
 
         <Button
-            android:text="about"
+            android:text="About"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:id="@+id/aboutBtn"

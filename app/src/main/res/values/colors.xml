@@ -5,4 +5,6 @@
     <color name="colorAccent">#ff4081</color>
     <color name="colorBgEditText">#fff</color>
     <color name="colorEditText">#000</color>
+    <color name="colorActionButtonsText">#303F9F</color>
+    <color name="colorActionButtonsBackground">#FFCC00 </color>
 </resources>
