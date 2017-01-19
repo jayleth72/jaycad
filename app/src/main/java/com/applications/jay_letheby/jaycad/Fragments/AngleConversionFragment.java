@@ -129,6 +129,8 @@ public class AngleConversionFragment extends Fragment implements View.OnClickLis
 
         if (degrees.length() > 0 | minutes.length() > 0 | seconds.length() > 0) {
             convertDegMinSecToDecimal(degrees, minutes, seconds);
+        }else if (decimalDegrees.length() > 0) {
+            convertDecimalToDegMinSec(decimalDegrees);
         }
     }
 
@@ -145,13 +147,34 @@ public class AngleConversionFragment extends Fragment implements View.OnClickLis
             degreesDecimalTxt.setText((decimalDegrees + ""));
 
         } catch (NumberFormatException e) {
-            // not an integer!
+            // not an double!
             degreesDecimalTxt.setText("0");
         }
 
     }
 
-    public void convertDecimaltoDegMinSec() {
+    public void convertDecimalToDegMinSec(String decimalDegrees) {
+
+        // Check data entered is numbers just in case
+        try{
+            // Get the whole degrees value from the decimal value
+            double decimalValue = Double.parseDouble(decimalDegrees);
+            int degrees = (int)decimalValue;
+            degreesTxt.setText(degrees + "");
+
+            // Get the whole minutes value from the decimal value
+            double calcMinutesValue = ((decimalValue - (double)degrees) * 60 );
+            int minutes = (int)calcMinutesValue;
+            degreesMinutesTxt.setText(minutes + "");
+
+            // Calculate seconds
+            double seconds = ((calcMinutesValue - (double)minutes)) * 60;
+            degreesSecondTxt.setText(seconds + "");
+
+        } catch (NumberFormatException e) {
+            // not an double!
+            degreesDecimalTxt.setText("0");
+        }
 
     }
 
