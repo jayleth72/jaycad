@@ -1,9 +1,12 @@
 package com.applications.jay_letheby.jaycad.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.icu.text.DecimalFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,8 @@ import android.widget.EditText;
 
 import com.applications.jay_letheby.jaycad.Activities.MainActivity;
 import com.applications.jay_letheby.jaycad.R;
+
+import java.math.BigDecimal;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -129,26 +134,37 @@ public class AngleConversionFragment extends Fragment implements View.OnClickLis
 
         if (degrees.length() > 0 | minutes.length() > 0 | seconds.length() > 0) {
             convertDegMinSecToDecimal(degrees, minutes, seconds);
-        }else if (decimalDegrees.length() > 0) {
+        } else if (decimalDegrees.length() > 0) {
             convertDecimalToDegMinSec(decimalDegrees);
+        } else {
+            // Show no data entered message
+            noDataEntered();
         }
+
     }
 
 
     public void convertDegMinSecToDecimal (String degrees, String minutes, String seconds){
 
+        double deg = 0.0;
+        double min = 0.0;
+        double sec = 0.0;
+
         // Check data entered is numbers just in case
         try{
-            double deg = Double.parseDouble(degrees);
-            double min = Double.parseDouble(minutes);
-            double sec = Double.parseDouble(seconds);
+            if (degrees.length() > 0)
+                deg = Double.parseDouble(degrees);
+            if (minutes.length() > 0)
+                min = Double.parseDouble(minutes);
+            if (seconds.length() > 0)
+                sec = Double.parseDouble(seconds);
 
             double decimalDegrees = deg + (min/60) + (sec/3600);
             degreesDecimalTxt.setText((decimalDegrees + ""));
 
         } catch (NumberFormatException e) {
             // not an double!
-            degreesDecimalTxt.setText("0");
+            degreesDecimalTxt.setText("1");
         }
 
     }
@@ -169,11 +185,12 @@ public class AngleConversionFragment extends Fragment implements View.OnClickLis
 
             // Calculate seconds
             double seconds = ((calcMinutesValue - (double)minutes)) * 60;
-            degreesSecondTxt.setText(seconds + "");
+            BigDecimal roundSeconds = new BigDecimal(seconds).setScale(2, BigDecimal.ROUND_HALF_UP);
+            degreesSecondTxt.setText(roundSeconds.toString());
 
         } catch (NumberFormatException e) {
             // not an double!
-            degreesDecimalTxt.setText("0");
+            degreesDecimalTxt.setText("Number error");
         }
 
     }
@@ -184,6 +201,23 @@ public class AngleConversionFragment extends Fragment implements View.OnClickLis
         degreesMinutesTxt.setText("");
         degreesSecondTxt.setText("");
         degreesDecimalTxt.setText("");
+    }
+
+    public void noDataEntered (){
+
+        // Alert message for no data entered
+        AlertDialog.Builder a_builder = new AlertDialog.Builder(getActivity());
+        a_builder.setMessage(R.string.dialog_no_data_message_angle_conversion)
+                    .setTitle(R.string.dialog_no_data_title_angle_conversion)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            // User clicked OK button
+                        }
+                    });
+        AlertDialog alert = a_builder.create();
+        alert.show();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
