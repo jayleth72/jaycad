@@ -6,15 +6,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-
 
         <TextView
             android:text="Angle Add Subtract"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView"
+            android:id="@+id/textView1"
             tools:text="Angle Add Subtract"
             android:textAlignment="center"
             android:textSize="35sp"
@@ -22,6 +21,293 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp" />
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp">
+
+            <TextView
+                android:text="DEGREES"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:layout_weight="0.78"
+                android:textSize="15sp"
+                android:layout_marginLeft="78dp" />
+
+            <TextView
+                android:text="MINUTES"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3"
+                android:layout_weight="0.75"
+                android:textSize="15sp"
+                android:layout_marginLeft="9dp" />
+
+            <TextView
+                android:text="SECONDS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView4"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:layout_marginLeft="5dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:text="Angle"
+                android:layout_width="85dp"
+                android:layout_height="match_parent"
+                android:id="@+id/textView5"
+                android:textSize="30sp"
+                android:textAlignment="viewEnd"
+                android:layout_gravity="end"
+                android:layout_marginRight="5dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/degrees1Txt"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_border"
+                android:textColor="@color/colorEditText"
+                android:layout_marginRight="15dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/minutes1Txt"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_border"
+                android:textColor="@color/colorEditText"
+                android:layout_marginRight="15dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/seconds3Txt"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_border"
+                android:textColor="@color/colorEditText"
+                android:layout_marginRight="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <Button
+                android:text="add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/addBtn"
+                android:layout_weight="1"
+                android:layout_gravity="start"
+                android:background="@drawable/action_buttons"
+                android:textColor="@color/colorActionButtonsText"
+                android:layout_marginRight="0dp"
+                android:layout_marginLeft="90dp" />
+
+            <Button
+                android:text="subtract"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/subtractBtn"
+                android:layout_weight="1"
+                android:layout_gravity="end"
+                android:background="@drawable/action_buttons"
+                android:textColor="@color/colorActionButtonsText"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="30dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:text="DEGREES"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView6"
+                android:layout_weight="0.78"
+                android:textSize="15sp"
+                android:layout_marginLeft="78dp" />
+
+            <TextView
+                android:text="MINUTES"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView7"
+                android:layout_weight="0.75"
+                android:textSize="15sp"
+                android:layout_marginLeft="9dp" />
+
+            <TextView
+                android:text="SECONDS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView8"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:layout_marginLeft="5dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:text="Angle"
+                android:layout_width="85dp"
+                android:layout_height="match_parent"
+                android:id="@+id/textView9"
+                android:textSize="30sp"
+                android:textAlignment="viewEnd"
+                android:layout_gravity="end"
+                android:layout_marginRight="5dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/degrees2Txt"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_border"
+                android:textColor="@color/colorEditText"
+                android:layout_marginRight="15dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/minutes2Txt"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_border"
+                android:textColor="@color/colorEditText"
+                android:layout_marginRight="15dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/seconds2Txt"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_border"
+                android:textColor="@color/colorEditText"
+                android:layout_marginRight="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:text="DEGREES"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView6"
+                android:layout_weight="0.78"
+                android:textSize="15sp"
+                android:layout_marginLeft="78dp" />
+
+            <TextView
+                android:text="MINUTES"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView7"
+                android:layout_weight="0.75"
+                android:textSize="15sp"
+                android:layout_marginLeft="9dp" />
+
+            <TextView
+                android:text="SECONDS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView8"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:layout_marginLeft="5dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:text="Result"
+                android:layout_width="85dp"
+                android:layout_height="match_parent"
+                android:id="@+id/textView10"
+                android:textSize="30sp"
+                android:textAlignment="viewEnd"
+                android:layout_gravity="end"
+                android:layout_marginRight="5dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/resultsDegreeTxt"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_border"
+                android:textColor="@color/colorEditText"
+                android:layout_marginRight="15dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/resultsMinutesTxt"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_border"
+                android:textColor="@color/colorEditText"
+                android:layout_marginRight="15dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/resultsSecondsTxt"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_border"
+                android:textColor="@color/colorEditText"
+                android:layout_marginRight="20dp" />
+        </LinearLayout>
         <Button
             android:text="main menu"
             android:layout_width="300dp"
