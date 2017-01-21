@@ -116,7 +116,7 @@ public class AngleConversionFragment extends Fragment implements View.OnClickLis
 
         Button chosenBtn = (Button)view;
 
-        // Load Fragment according to which button is pressed in the Main Menu
+        // Load Fragment according to which button is pressed
         if (chosenBtn == convertBtn){
             convertAngle();
         } else if (clearBtn == clearBtn){

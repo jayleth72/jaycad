@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.applications.jay_letheby.jaycad.Activities.MainActivity;
 import com.applications.jay_letheby.jaycad.R;
@@ -20,7 +22,7 @@ import com.applications.jay_letheby.jaycad.R;
  * Use the {@link AngleAddSubtractFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AngleAddSubtractFragment extends Fragment {
+public class AngleAddSubtractFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +32,23 @@ public class AngleAddSubtractFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    // Buttons
+    private Button clear1Btn;
+    private Button clear2Btn;
+    private Button addBtn;
+    private Button subtractBtn;
     private Button mainMenuBtn;
+
+    // Edit Text fields
+    private EditText degrees1Txt;
+    private EditText minutes1Txt;
+    private EditText seconds1Txt;
+    private EditText degrees2Txt;
+    private EditText minutes2Txt;
+    private EditText seconds2Txt;
+
+    // Text View Fields
+    private TextView resultsTxtView;
 
     private AngleAddSubtractFragmentInteractionListener mListener;
 
@@ -71,7 +89,27 @@ public class AngleAddSubtractFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_angle_add_subtract, container, false);
 
+        // Button initialisation
+        clear1Btn = (Button)view.findViewById(R.id.clear1Btn);
+        clear2Btn = (Button)view.findViewById(R.id.clear2Btn);
+        addBtn = (Button)view.findViewById(R.id.addBtn);
+        subtractBtn = (Button)view.findViewById(R.id.subtractBtn);
         mainMenuBtn = (Button)view.findViewById(R.id.mainMenuBtn);
+
+        // Edit Text initialisation
+        degrees1Txt = (EditText)view.findViewById(R.id.degrees1Txt);
+        minutes1Txt = (EditText)view.findViewById(R.id.minutes1Txt);
+        seconds1Txt = (EditText)view.findViewById(R.id.seconds1Txt);
+        degrees2Txt = (EditText)view.findViewById(R.id.degrees2Txt);
+        minutes2Txt = (EditText)view.findViewById(R.id.minutes2Txt);
+        seconds2Txt = (EditText)view.findViewById(R.id.seconds2Txt);
+
+        // Set Listeners
+        clear1Btn.setOnClickListener(this);
+        clear2Btn.setOnClickListener(this);
+        addBtn.setOnClickListener(this);
+        subtractBtn.setOnClickListener(this);
+
         mainMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,8 +119,56 @@ public class AngleAddSubtractFragment extends Fragment {
             }
         });
 
+
         // Inflate the layout for this fragment
         return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        Button chosenBtn = (Button)view;
+
+        // determine action according to button pressed
+        if (chosenBtn == clear1Btn){
+
+            clearAngle1Fields();
+
+        } else if (chosenBtn == clear2Btn) {
+
+            clearAngle2Fields();
+
+        } else if (chosenBtn == addBtn) {
+
+            addAngles();
+
+        } else if (chosenBtn == subtractBtn) {
+
+            subtractAngles();
+
+        }
+    }
+
+    public void clearAngle1Fields () {
+
+        degrees1Txt.setText("");
+        minutes1Txt.setText("");
+        seconds1Txt.setText("");
+    }
+
+    public void clearAngle2Fields () {
+
+        degrees2Txt.setText("");
+        minutes2Txt.setText("");
+        seconds2Txt.setText("");
+    }
+
+    public void addAngles() {
+
+    }
+
+    public void subtractAngles() {
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
