@@ -1,18 +1,28 @@
 package com.applications.jay_letheby.jaycad.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.applications.jay_letheby.jaycad.Activities.MainActivity;
 import com.applications.jay_letheby.jaycad.R;
+import com.applications.jay_letheby.jaycad.HelperClasses.Angle;
+import com.applications.jay_letheby.jaycad.HelperClasses.DataInputChecker;
+import com.applications.jay_letheby.jaycad.HelperClasses.InputFilterMinMax;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +45,7 @@ public class AngleAddSubtractFragment extends Fragment implements View.OnClickLi
     // Buttons
     private Button clear1Btn;
     private Button clear2Btn;
+    private Button clearResulsBtn;
     private Button addBtn;
     private Button subtractBtn;
     private Button mainMenuBtn;
@@ -49,6 +60,19 @@ public class AngleAddSubtractFragment extends Fragment implements View.OnClickLi
 
     // Text View Fields
     private TextView resultsTxtView;
+
+    // Varaibles to hold user input data
+    private String degrees1;
+    private String minutes1;
+    private String seconds1;
+    private String degrees2;
+    private String minutes2;
+    private String seconds2;
+
+    // Angle objects to hold user input and perform Angle math operations
+    Angle angle1;
+    Angle angle2;
+    DataInputChecker inputChecker;
 
     private AngleAddSubtractFragmentInteractionListener mListener;
 
@@ -92,6 +116,7 @@ public class AngleAddSubtractFragment extends Fragment implements View.OnClickLi
         // Button initialisation
         clear1Btn = (Button)view.findViewById(R.id.clear1Btn);
         clear2Btn = (Button)view.findViewById(R.id.clear2Btn);
+        clearResulsBtn = (Button)view.findViewById(R.id.clear3Btn);
         addBtn = (Button)view.findViewById(R.id.addBtn);
         subtractBtn = (Button)view.findViewById(R.id.subtractBtn);
         mainMenuBtn = (Button)view.findViewById(R.id.mainMenuBtn);
@@ -104,11 +129,36 @@ public class AngleAddSubtractFragment extends Fragment implements View.OnClickLi
         minutes2Txt = (EditText)view.findViewById(R.id.minutes2Txt);
         seconds2Txt = (EditText)view.findViewById(R.id.seconds2Txt);
 
+        // Limit the number of digits to enter
+        degrees1Txt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(3)});
+        minutes1Txt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2)});
+        seconds1Txt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2)});
+
+        degrees2Txt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(3)});
+        minutes2Txt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2)});
+        seconds2Txt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2)});
+
+        // Limit the number range to 0-59 for minutes and seconds fields
+        minutes1Txt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "59")});
+        seconds1Txt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "59")});
+        minutes2Txt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "59")});
+        seconds2Txt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "59")});
+
+
+        // TextView initialisation
+        resultsTxtView = (TextView)view.findViewById(R.id.resultTxtView);
+
         // Set Listeners
         clear1Btn.setOnClickListener(this);
         clear2Btn.setOnClickListener(this);
+        clearResulsBtn.setOnClickListener(this);
         addBtn.setOnClickListener(this);
         subtractBtn.setOnClickListener(this);
+
+        // Initalise helper objects
+        inputChecker = new DataInputChecker();
+        angle1 = new Angle(0, 0, 0);
+        angle2 = new Angle(0, 0, 0);
 
         mainMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,15 +188,44 @@ public class AngleAddSubtractFragment extends Fragment implements View.OnClickLi
 
             clearAngle2Fields();
 
-        } else if (chosenBtn == addBtn) {
+        } else if (chosenBtn == clearResulsBtn) {
 
-            addAngles();
+            clearResults();
 
-        } else if (chosenBtn == subtractBtn) {
+        } else if (chosenBtn == addBtn | chosenBtn == subtractBtn) {
 
-            subtractAngles();
+            getUserInput();
+
+            String angle1InputFields[] = {degrees1, minutes1, seconds1};
+            String angle2InputFields[] = {degrees2, minutes2, seconds2};
+
+            // Check that data has been entered
+            if (inputChecker.allInputFieldsEmpty(angle1InputFields) && inputChecker.allInputFieldsEmpty(angle2InputFields)){
+                // show alert dialog if all fields are empty
+                noDataEntered();
+                return;
+            }
+            // Check that data is Numerical
+            if(inputChecker.isNotNumericData(angle1InputFields, "Integer") | inputChecker.isNotNumericData(angle2InputFields, "Double")){
+                // show alert if data entered is not correct
+                noDataEntered();
+                return;
+            }
+
+            // We have passed all data validation checks so perform math operation on angles
+            if (chosenBtn == addBtn) {
+                // angular addition
+                angle1.setAllValues(degrees1, minutes1, seconds1);
+                angle2.setAllValues(degrees2, minutes2, seconds2);
+                resultsTxtView.setText(angle1.addAngle(angle2));
+
+            } else if (chosenBtn == subtractBtn) {
+                // angular subtraction
+
+            }
 
         }
+
     }
 
     public void clearAngle1Fields () {
@@ -163,12 +242,49 @@ public class AngleAddSubtractFragment extends Fragment implements View.OnClickLi
         seconds2Txt.setText("");
     }
 
+    public void clearResults () {
+
+        resultsTxtView.setText("");
+    }
+
+
     public void addAngles() {
 
     }
 
     public void subtractAngles() {
 
+    }
+
+    public void getUserInput (){
+        // initalise global variables to hold user input
+
+
+        degrees1 = degrees1Txt.getText().toString().trim();
+        minutes1 = minutes1Txt.getText().toString().trim();
+        seconds1 = seconds1Txt.getText().toString().trim();
+
+        degrees2 = degrees2Txt.getText().toString();
+        minutes2 = minutes2Txt.getText().toString();
+        seconds2 = seconds2Txt.getText().toString();
+
+    }
+
+    public void noDataEntered (){
+
+        // Alert message for no data entered
+        AlertDialog.Builder a_builder = new AlertDialog.Builder(getActivity());
+        a_builder.setMessage(R.string.dialog_no_data_message_angle_conversion)
+                .setTitle(R.string.dialog_no_data_title_angle_conversion)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // User clicked OK button
+                    }
+                });
+        AlertDialog alert = a_builder.create();
+        alert.show();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -271,11 +271,24 @@
                 android:layout_height="match_parent"
                 android:id="@+id/resultTxtView"
                 android:textSize="30sp"
-                android:textAlignment="viewEnd"
+                android:textAlignment="gravity"
                 android:layout_gravity="end"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/results_text_view"
-                android:layout_weight="0.87" />
+                android:layout_weight="0.90"
+                android:textColor="@color/colorResutsTextViewFontColor"
+                android:gravity="start" />
+
+            <Button
+                android:text="clear"
+                android:layout_width="59dp"
+                android:layout_height="match_parent"
+                android:id="@+id/clear3Btn"
+                android:layout_gravity="start"
+                android:background="@drawable/action_buttons"
+                android:textColor="@color/colorActionButtonsText"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="5dp" />
         </LinearLayout>
         <Button
             android:text="main menu"
