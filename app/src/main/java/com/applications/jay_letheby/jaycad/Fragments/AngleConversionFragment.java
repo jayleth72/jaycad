@@ -12,11 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import java.math.BigDecimal;
 
 import com.applications.jay_letheby.jaycad.Activities.MainActivity;
 import com.applications.jay_letheby.jaycad.R;
+import com.applications.jay_letheby.jaycad.HelperClasses.InputFilterMinMax;
+import com.applications.jay_letheby.jaycad.HelperClasses.DataInputChecker;
+import com.applications.jay_letheby.jaycad.HelperClasses.Angle;
 
-import java.math.BigDecimal;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,6 +47,10 @@ public class AngleConversionFragment extends Fragment implements View.OnClickLis
     private EditText degreesMinutesTxt;
     private EditText degreesSecondTxt;
     private EditText degreesDecimalTxt;
+
+    private Angle conversionAngle;
+    private DataInputChecker dataInputChecker;
+    private InputFilterMinMax inputFilterMinMax;
 
     private AngleConversionInteractionListener mListener;
 
@@ -96,6 +103,7 @@ public class AngleConversionFragment extends Fragment implements View.OnClickLis
         degreesSecondTxt = (EditText)view.findViewById(R.id.degreesSecondsTxt);
         degreesDecimalTxt = (EditText)view.findViewById(R.id.decimalDegreesTxt);
 
+
         mainMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,6 +115,8 @@ public class AngleConversionFragment extends Fragment implements View.OnClickLis
 
         convertBtn.setOnClickListener(this);
         clearBtn.setOnClickListener(this);
+
+        dataInputChecker = new DataInputChecker();
 
         return view;
     }
@@ -132,8 +142,29 @@ public class AngleConversionFragment extends Fragment implements View.OnClickLis
         String seconds = degreesSecondTxt.getText().toString().trim();
         String decimalDegrees = degreesDecimalTxt.getText().toString().trim();
 
+        String []degMinSec = {degrees, minutes, seconds};
+
+        //
         if (degrees.length() > 0 | minutes.length() > 0 | seconds.length() > 0) {
-            convertDegMinSecToDecimal(degrees, minutes, seconds);
+            // Convert to decimal
+
+             //Check for non-numerical data
+            if (dataInputChecker.isNotNumericData(degMinSec, "Integer")){
+                // SHow error message because non-numeric data entered
+                noDataEntered();
+            }
+            else {
+                // Data is numerical, Convert to decimal
+                // Assign zero to empty fields
+                degrees = (degrees.length() > 0) ? degrees : "0";
+                minutes = (minutes.length() > 0) ? minutes : "0";
+                seconds = (seconds.length() > 0) ? seconds : "0";
+                
+                conversionAngle = new Angle(Integer.parseInt(degrees), Integer.parseInt(minutes), Integer.parseInt(seconds));
+                conversionAngle.convertDegMinSecToDecimal();
+                degreesDecimalTxt.setText(conversionAngle.getDecimalAngle() + "");
+            }
+
         } else if (decimalDegrees.length() > 0) {
             convertDecimalToDegMinSec(decimalDegrees);
         } else {

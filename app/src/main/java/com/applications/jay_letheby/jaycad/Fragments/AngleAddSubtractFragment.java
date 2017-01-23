@@ -221,7 +221,9 @@ public class AngleAddSubtractFragment extends Fragment implements View.OnClickLi
 
             } else if (chosenBtn == subtractBtn) {
                 // angular subtraction
-
+                angle1.setAllValues(degrees1, minutes1, seconds1);
+                angle2.setAllValues(degrees2, minutes2, seconds2);
+                resultsTxtView.setText(angle1.subtractAngle(angle2));
             }
 
         }
