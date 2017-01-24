@@ -7,7 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.applications.jay_letheby.jaycad.Activities.MainActivity;
 import com.applications.jay_letheby.jaycad.R;
@@ -20,7 +24,7 @@ import com.applications.jay_letheby.jaycad.R;
  * Use the {@link LengthConversionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LengthConversionFragment extends Fragment implements View.OnClickListener{
+public class LengthConversionFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,6 +36,8 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
 
 
     private Button mainMenuBtn;
+
+    private Spinner lengthConversionSpinner;
 
     private LengthConversionFragmentInteractionListener mListener;
 
@@ -72,8 +78,24 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
 
         View view = inflater.inflate(R.layout.fragment_length_conversion, container, false);
 
-
+        // Initailise buttons
         mainMenuBtn = (Button)view.findViewById(R.id.mainMenuBtn);
+
+        // Initialise spinners
+        lengthConversionSpinner = (Spinner)view.findViewById(R.id.units1Spinner);
+
+        lengthConversionSpinner.setOnItemSelectedListener(this);
+
+        // Create adapter for spinner
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.length_units_array, android.R.layout.simple_spinner_dropdown_item);
+
+        // Drop down layout style - list view with radio button
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        lengthConversionSpinner.setAdapter(adapter);
+
 
         mainMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +114,20 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
     public void onClick(View view) {
 
 
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
+
+        // Showing selected spinner item
+        //Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
 

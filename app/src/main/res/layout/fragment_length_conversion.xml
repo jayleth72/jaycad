@@ -22,6 +22,36 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp" />
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="155dp"
+                android:layout_height="match_parent"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/convertFrom"
+                android:text="40"
+                android:background="@drawable/edit_text_border"
+                android:textColor="@color/colorEditText"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="15dp" />
+
+            <Spinner
+                android:id="@+id/units1Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+
         <Button
             android:text="main menu"
             android:layout_width="300dp"
