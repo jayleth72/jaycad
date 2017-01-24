@@ -154,12 +154,6 @@ public class AngleAddSubtractFragment extends Fragment implements View.OnClickLi
         clearResulsBtn.setOnClickListener(this);
         addBtn.setOnClickListener(this);
         subtractBtn.setOnClickListener(this);
-
-        // Initalise helper objects
-        inputChecker = new DataInputChecker();
-        angle1 = new Angle(0, 0, 0);
-        angle2 = new Angle(0, 0, 0);
-
         mainMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,7 +163,8 @@ public class AngleAddSubtractFragment extends Fragment implements View.OnClickLi
             }
         });
 
-
+        // Initalise helper objects
+        inputChecker = new DataInputChecker();
         // Inflate the layout for this fragment
         return view;
     }
@@ -208,21 +203,32 @@ public class AngleAddSubtractFragment extends Fragment implements View.OnClickLi
             // Check that data is Numerical
             if(inputChecker.isNotNumericData(angle1InputFields, "Integer") | inputChecker.isNotNumericData(angle2InputFields, "Double")){
                 // show alert if data entered is not correct
-                noDataEntered();
+                nonNumericalDataEntered();
                 return;
             }
+
+            // Data is numerical, Convert to decimal
+            // Assign zero to empty fields
+            degrees1 = (degrees1.length() > 0) ? degrees1 : "0";
+            minutes1 = (minutes1.length() > 0) ? minutes1 : "0";
+            seconds1 = (seconds1.length() > 0) ? seconds1 : "0";
+
+            degrees2 = (degrees2.length() > 0) ? degrees2 : "0";
+            minutes2 = (minutes2.length() > 0) ? minutes2 : "0";
+            seconds2 = (seconds2.length() > 0) ? seconds2 : "0";
+
+            angle1 = new Angle();
+            angle2 = new Angle();
+            angle1.setAllValues(degrees1, minutes1, seconds1);
+            angle2.setAllValues(degrees2, minutes2, seconds2);
 
             // We have passed all data validation checks so perform math operation on angles
             if (chosenBtn == addBtn) {
                 // angular addition
-                angle1.setAllValues(degrees1, minutes1, seconds1);
-                angle2.setAllValues(degrees2, minutes2, seconds2);
                 resultsTxtView.setText(angle1.addAngle(angle2));
 
             } else if (chosenBtn == subtractBtn) {
                 // angular subtraction
-                angle1.setAllValues(degrees1, minutes1, seconds1);
-                angle2.setAllValues(degrees2, minutes2, seconds2);
                 resultsTxtView.setText(angle1.subtractAngle(angle2));
             }
 
@@ -249,18 +255,8 @@ public class AngleAddSubtractFragment extends Fragment implements View.OnClickLi
         resultsTxtView.setText("");
     }
 
-
-    public void addAngles() {
-
-    }
-
-    public void subtractAngles() {
-
-    }
-
     public void getUserInput (){
         // initalise global variables to hold user input
-
 
         degrees1 = degrees1Txt.getText().toString().trim();
         minutes1 = minutes1Txt.getText().toString().trim();
@@ -276,8 +272,25 @@ public class AngleAddSubtractFragment extends Fragment implements View.OnClickLi
 
         // Alert message for no data entered
         AlertDialog.Builder a_builder = new AlertDialog.Builder(getActivity());
-        a_builder.setMessage(R.string.dialog_no_data_message_angle_conversion)
+        a_builder.setMessage(R.string.dialog_no_data_angle_add_subtract_message)
                 .setTitle(R.string.dialog_no_data_title_angle_conversion)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // User clicked OK button
+                    }
+                });
+        AlertDialog alert = a_builder.create();
+        alert.show();
+    }
+
+    public void nonNumericalDataEntered (){
+
+        // Alert message for no data entered
+        AlertDialog.Builder a_builder = new AlertDialog.Builder(getActivity());
+        a_builder.setMessage(R.string.dialog_non_numerical_data_message)
+                .setTitle(R.string.dialog_non_numerical_data_title)
                 .setCancelable(false)
                 .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
                     @Override

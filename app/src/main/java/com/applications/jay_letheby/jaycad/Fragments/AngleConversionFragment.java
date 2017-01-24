@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,6 +104,14 @@ public class AngleConversionFragment extends Fragment implements View.OnClickLis
         degreesSecondTxt = (EditText)view.findViewById(R.id.degreesSecondsTxt);
         degreesDecimalTxt = (EditText)view.findViewById(R.id.decimalDegreesTxt);
 
+        // Limit the number of digits to enter
+        degreesTxt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(3)});
+        degreesMinutesTxt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2)});
+        degreesSecondTxt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(4)});
+
+        // Limit the number range to 0-59 for minutes and seconds fields
+        degreesMinutesTxt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "59")});
+        degreesSecondTxt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "59")});
 
         mainMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,86 +151,47 @@ public class AngleConversionFragment extends Fragment implements View.OnClickLis
         String seconds = degreesSecondTxt.getText().toString().trim();
         String decimalDegrees = degreesDecimalTxt.getText().toString().trim();
 
-        String []degMinSec = {degrees, minutes, seconds};
+        String []degMin = {degrees, minutes};
+        String []secondsArray = {seconds};
+        String []decimalArray = {decimalDegrees};
 
-        //
+        // Check for degrees minutes and seconds input
         if (degrees.length() > 0 | minutes.length() > 0 | seconds.length() > 0) {
             // Convert to decimal
 
              //Check for non-numerical data
-            if (dataInputChecker.isNotNumericData(degMinSec, "Integer")){
+            if (dataInputChecker.isNotNumericData(degMin, "Integer") | dataInputChecker.isNotNumericData(secondsArray, "Double")){
                 // SHow error message because non-numeric data entered
-                noDataEntered();
-            }
-            else {
+                nonNumericalDataEntered();
+            } else {
                 // Data is numerical, Convert to decimal
                 // Assign zero to empty fields
                 degrees = (degrees.length() > 0) ? degrees : "0";
                 minutes = (minutes.length() > 0) ? minutes : "0";
                 seconds = (seconds.length() > 0) ? seconds : "0";
-                
-                conversionAngle = new Angle(Integer.parseInt(degrees), Integer.parseInt(minutes), Integer.parseInt(seconds));
-                conversionAngle.convertDegMinSecToDecimal();
+
+                conversionAngle = new Angle();
+                conversionAngle.setAllValues(degrees, minutes, seconds);
                 degreesDecimalTxt.setText(conversionAngle.getDecimalAngle() + "");
             }
 
         } else if (decimalDegrees.length() > 0) {
-            convertDecimalToDegMinSec(decimalDegrees);
+            //Check for non-numerical data
+            if (dataInputChecker.isNotNumericData(decimalArray, "Double")){
+                // SHow error message because non-numeric data entered
+                nonNumericalDataEntered();
+            } else {
+                // Data is numerical, Convert to degrees, minutes seconds
+                conversionAngle = new Angle();
+                conversionAngle.setDecimalAngle(Double.parseDouble(decimalDegrees));
+                degreesTxt.setText(conversionAngle.getDegrees() + "");
+                degreesMinutesTxt.setText(conversionAngle.getMinutes() + "");
+                degreesSecondTxt.setText(conversionAngle.getDecimalSeconds() + "");
+            }
+
         } else {
             // Show no data entered message
             noDataEntered();
-        }
-
-    }
-
-
-    public void convertDegMinSecToDecimal (String degrees, String minutes, String seconds){
-
-        double deg = 0.0;
-        double min = 0.0;
-        double sec = 0.0;
-
-        // Check data entered is numbers just in case
-        try{
-            if (degrees.length() > 0)
-                deg = Double.parseDouble(degrees);
-            if (minutes.length() > 0)
-                min = Double.parseDouble(minutes);
-            if (seconds.length() > 0)
-                sec = Double.parseDouble(seconds);
-
-            double decimalDegrees = deg + (min/60) + (sec/3600);
-            degreesDecimalTxt.setText((decimalDegrees + ""));
-
-        } catch (NumberFormatException e) {
-            // not an double!
-            degreesDecimalTxt.setText("1");
-        }
-
-    }
-
-    public void convertDecimalToDegMinSec(String decimalDegrees) {
-
-        // Check data entered is numbers just in case
-        try{
-            // Get the whole degrees value from the decimal value
-            double decimalValue = Double.parseDouble(decimalDegrees);
-            int degrees = (int)decimalValue;
-            degreesTxt.setText(degrees + "");
-
-            // Get the whole minutes value from the decimal value
-            double calcMinutesValue = ((decimalValue - (double)degrees) * 60 );
-            int minutes = (int)calcMinutesValue;
-            degreesMinutesTxt.setText(minutes + "");
-
-            // Calculate seconds
-            double seconds = ((calcMinutesValue - (double)minutes)) * 60;
-            BigDecimal roundSeconds = new BigDecimal(seconds).setScale(2, BigDecimal.ROUND_HALF_UP);
-            degreesSecondTxt.setText(roundSeconds.toString());
-
-        } catch (NumberFormatException e) {
-            // not an double!
-            degreesDecimalTxt.setText("Number error");
         }
 
     }
@@ -247,6 +217,23 @@ public class AngleConversionFragment extends Fragment implements View.OnClickLis
                             // User clicked OK button
                         }
                     });
+        AlertDialog alert = a_builder.create();
+        alert.show();
+    }
+
+    public void nonNumericalDataEntered (){
+
+        // Alert message for no data entered
+        AlertDialog.Builder a_builder = new AlertDialog.Builder(getActivity());
+        a_builder.setMessage(R.string.dialog_non_numerical_data_message)
+                .setTitle(R.string.dialog_non_numerical_data_title)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // User clicked OK button
+                    }
+                });
         AlertDialog alert = a_builder.create();
         alert.show();
     }

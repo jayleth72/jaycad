@@ -15,11 +15,7 @@ public class Angle {
     private double decimalSeconds = 0.0;
     private double decimalAngle = 0.0;
 
-    public Angle (int deg, int min, int sec) {
-
-        this.degrees = deg;
-        this.minutes = min;
-        this.seconds = sec;
+    public Angle () {
 
     }
 
@@ -41,20 +37,32 @@ public class Angle {
 
     public double getDecimalAngle() {
         return decimalAngle;
+
     }
 
     public void setDegrees(int degrees) {
         this.degrees = degrees;
+        convertDegMinSecToDecimal();
     }
 
     public void setMinutes(int minutes) {
         this.minutes = minutes;
+        convertDegMinSecToDecimal();
     }
 
     public void setSeconds(int seconds) {
         this.seconds = seconds;
+        convertDegMinSecToDecimal();
     }
 
+    public void setDecimalSeconds(double decimalSeconds) {
+        this.decimalSeconds = decimalSeconds;
+    }
+
+    public void setDecimalAngle(double decimalAngle) {
+        this.decimalAngle = decimalAngle;
+        convertDecimalToDegMinSec();
+    }
 
     public void setAllValues(String deg, String min, String sec) {
 
@@ -75,6 +83,8 @@ public class Angle {
                setSeconds(Integer.parseInt(sec));
             else
                 setSeconds(0);
+
+            convertDegMinSecToDecimal();
         }
         catch (NumberFormatException e) {
             return;
@@ -83,67 +93,30 @@ public class Angle {
 
     public String addAngle(Angle otherAngle) {
         // Add this objects angle data to the one passed in as a parameter
-        int degreesResult = 0;
-        int minutesResult = 0;
-        int secondsResult = 0;
 
-        secondsResult = seconds + otherAngle.getSeconds();
-        if (secondsResult > 60) {
+        this.decimalAngle = this.decimalAngle + otherAngle.getDecimalAngle();
+        convertDecimalToDegMinSec();
 
-            minutesResult = secondsResult / 60;
-            secondsResult = secondsResult % 60;
-
-        }
-
-        minutesResult = minutesResult + minutes + otherAngle.getMinutes();
-
-        if (minutesResult > 60) {
-
-            degreesResult = minutesResult / 60;
-            minutesResult = minutesResult % 60;
-
-        }
-
-        degreesResult = degreesResult + degrees + otherAngle.getDegrees();
-
-        return degreesResult + "° " + minutesResult + "' " + secondsResult + "\"";
+        return this.degrees + "° " + Math.abs(this.minutes) + "' " + Math.abs(this.seconds) + "\"";
     }
 
     public String subtractAngle(Angle otherAngle) {
         // Subtract this objects angle data to the one passed in as a parameter
-        int degreesResult = 0;
-        int minutesResult = 0;
-        int secondsResult = 0;
 
+        this.decimalAngle = this.decimalAngle - otherAngle.getDecimalAngle();
+        convertDecimalToDegMinSec();
 
-        if (seconds - otherAngle.getSeconds() < 0) {
-            secondsResult = (seconds + 60) - otherAngle.getSeconds();
-            minutesResult = -1;
-        }
-        else
-            secondsResult = seconds - otherAngle.getSeconds();
-
-
-        if ((minutes - otherAngle.getMinutes() + minutesResult) < 0) {
-            minutesResult = (minutes + 60) - otherAngle.getMinutes() + minutesResult;
-            degreesResult = -1;
-        }
-        else
-            minutesResult =  minutes - otherAngle.getMinutes() + minutesResult;
-
-        degreesResult =  degrees - otherAngle.getDegrees() + degreesResult;
-
-        return degreesResult + "° " + minutesResult + "' " + secondsResult + "\"";
+        return this.degrees + "° " + Math.abs(this.minutes) + "' " + Math.abs(this.seconds) + "\"";
     }
 
-    public void convertDegMinSecToDecimal (){
+    private void convertDegMinSecToDecimal (){
         // Converts Deg Min Second to decimal degrees
 
         decimalAngle = this.degrees + ((double)this.minutes/60) + ((double)this.seconds/3600);
 
     }
 
-    public void convertDecimalToDegMinSec() {
+    private void convertDecimalToDegMinSec() {
 
             // Get the whole degrees value from the decimal value
             this.degrees = (int)this.decimalAngle;
@@ -151,13 +124,14 @@ public class Angle {
 
             // Get the whole minutes value from the decimal value
             double calcMinutesValue = ((this.decimalAngle - (double)this.degrees) * 60 );
-            int minutes = (int)calcMinutesValue;
+            this.minutes = (int)calcMinutesValue;
 
             // Calculate seconds
             double seconds = ((calcMinutesValue - (double)minutes)) * 60;
             BigDecimal roundSeconds = new BigDecimal(seconds).setScale(2, BigDecimal.ROUND_HALF_UP);
             this.decimalSeconds = roundSeconds.doubleValue();
-
+            // round to nearest whole number
+            this.seconds = (int) Math.round(decimalSeconds);
     }
 
 
