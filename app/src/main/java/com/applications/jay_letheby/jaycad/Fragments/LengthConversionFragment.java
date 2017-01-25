@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.applications.jay_letheby.jaycad.Activities.MainActivity;
@@ -34,8 +36,17 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
     private String mParam1;
     private String mParam2;
 
-
+    private Button clearConvertToBtn;
+    private Button clearConvertFromBtn;
+    private Button clearStackBtn;
+    private Button convertBtn;
     private Button mainMenuBtn;
+
+    private EditText convertToTxt;
+
+    private TextView converToTxtView;
+    private TextView lengthStackTxtView;
+    private TextView runningTotalTxtView;
 
     private Spinner lengthConversionSpinner;
 
@@ -79,11 +90,22 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
         View view = inflater.inflate(R.layout.fragment_length_conversion, container, false);
 
         // Initailise buttons
+        convertBtn = (Button)view.findViewById(R.id.convertBtn);
+        clearConvertFromBtn = (Button)view.findViewById(R.id.clearConvertFromBtn);
+        clearConvertToBtn = (Button)view.findViewById(R.id.clearResultBtn);
+        clearStackBtn = (Button)view.findViewById(R.id.clearStackBtn);
         mainMenuBtn = (Button)view.findViewById(R.id.mainMenuBtn);
 
-        // Initialise spinners
-        lengthConversionSpinner = (Spinner)view.findViewById(R.id.units1Spinner);
+        // Initialise EditTextField
+        convertToTxt = (EditText)view.findViewById(R.id.convertFrom);
 
+        // Initialise TextViews
+        converToTxtView = (TextView)view.findViewById(R.id.resultTxtView);
+        lengthStackTxtView = (TextView)view.findViewById(R.id.resultStackTxtView);
+        runningTotalTxtView = (TextView)view.findViewById(R.id.runningTotalTxtView);
+
+        // Initialise spinner
+        lengthConversionSpinner = (Spinner)view.findViewById(R.id.units1Spinner);
         lengthConversionSpinner.setOnItemSelectedListener(this);
 
         // Create adapter for spinner
@@ -106,6 +128,12 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
             }
         });
 
+        // Set Listeners for buttons
+        convertBtn.setOnClickListener(this);
+        clearConvertFromBtn.setOnClickListener(this);
+        clearConvertToBtn.setOnClickListener(this);
+        clearStackBtn.setOnClickListener(this);
+
         // Inflate the layout for this fragment
         return view;
     }
@@ -113,7 +141,20 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
     @Override
     public void onClick(View view) {
 
+        Button chosenBtn = (Button)view;
 
+        if (chosenBtn == convertBtn){
+            // convert units
+            convertMeasurement();
+        } else if (chosenBtn == clearConvertFromBtn)
+             convertToTxt.setText("");
+          else if (chosenBtn == clearConvertToBtn)
+             converToTxtView.setText("");
+           else if (chosenBtn == clearStackBtn)
+             lengthStackTxtView.setText("");
+    }
+
+    public void convertMeasurement() {
 
     }
 
