@@ -17,27 +17,32 @@ public class Converter {
 
     public  Converter () {}
 
-    public Double lengthConverter (LengthConversionOperation operation, Double measurementToConvert) {
+    public String lengthConverter (LengthConversionOperation operation, Double measurementToConvert) {
         // Length conversions
         Double convertedMeasurement = 0.0;
+        String formattedResult = "";
 
         switch (operation) {
             case FEET_TO_METRES:
                 convertedMeasurement = convertToDecimalFeet(measurementToConvert);
                 convertedMeasurement = convertedMeasurement * 0.3048;
+                formattedResult = convertedMeasurement + "metres";
                 break;
             case METRES_TO_FEET:
-                convertedMeasurement = measurementToConvert / 0.3048;
+                convertedMeasurement = measurementToConvert * 3.28084;
+                formattedResult = convertedMeasurement + "feet";
                 break;
             case LINKS_TO_METRES:
                 convertedMeasurement = measurementToConvert * 0.201168;
+                formattedResult = convertedMeasurement + "metres";
                 break;
             case METRES_TO_LINKS:
-                convertedMeasurement = measurementToConvert / 0.201168;
+                convertedMeasurement = measurementToConvert * 4.9709595959;
+                formattedResult = convertedMeasurement + "links";
                 break;
 
         }
-        return convertedMeasurement;
+        return formattedResult;
     }
 
     public Double areaConverter (AreaConversionOperation operation, Double measurementToConvert){

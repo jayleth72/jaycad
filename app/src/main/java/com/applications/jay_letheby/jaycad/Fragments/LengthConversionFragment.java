@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.renderscript.Double2;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
@@ -199,6 +200,12 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
     public void convertMeasurement() {
         // perform conversion according to action chosen from dropdown
         int convertAction = lengthConversionSpinner.getSelectedItemPosition();
+        // Will hold result of conversion
+        String result = "";
+        String convertMeasure = "";
+        String inchMeasure = "";
+        String fractionalInchMeasure = "";
+
         // String Array for checking for no data entered
         String [] conversionDataInput = {convertFromTxt.getText().toString(), inchTxt.getText().toString(), fractionInchTxt.getText().toString()};
 
@@ -213,7 +220,7 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
 
         String [] conversionDataDoubleInput = {convertFromTxt.getText().toString()};
 
-        // Check for integer data when converting feet to metress otherwise checkig for double type input
+        // Check for integer data when converting feet to metress otherwise checking for double type input
         if (convertAction == 0) {
             // Check for integer data when converting feet to metres
             if (dataInputChecker.isNotNumericData(conversionDataInput, "Integer")) {
@@ -228,22 +235,32 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
             }
         }
 
+        // Get Input data
+        convertMeasure = convertFromTxt.getText().toString();
+        inchMeasure = inchTxt.getText().toString();
+        fractionalInchMeasure = fractionInchTxt.getText().toString();
+
+        // Convert no input to zeros
+        convertMeasure = (convertMeasure.length() > 0) ? convertMeasure : "0";
+        inchMeasure = (inchMeasure.length() > 0) ? inchMeasure : "0";
+        fractionalInchMeasure = (fractionalInchMeasure.length() > 0) ? fractionalInchMeasure : "0";
+
         switch (convertAction) {
             case 0:
                 // Feet to Meters
-
+                result = converter.lengthConverter(Converter.LengthConversionOperation.FEET_TO_METRES, 0.0);
                 break;
             case 1:
                 // Metres to feet
-
+                result = converter.lengthConverter(Converter.LengthConversionOperation.METRES_TO_FEET, Double.parseDouble(convertMeasure));
                 break;
             case 2:
                 // Links to Mtres
-
+                result = converter.lengthConverter(Converter.LengthConversionOperation.LINKS_TO_METRES, Double.parseDouble(convertMeasure));
                 break;
             case 3:
                 // Metres to Links
-
+                result = converter.lengthConverter(Converter.LengthConversionOperation.METRES_TO_LINKS, Double.parseDouble(convertMeasure));
                 break;
             default:
                 // error
@@ -251,6 +268,9 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
                 // display error message
                 break;
         }
+
+        // Display result
+        converToTxtView.setText(result);
     }
 
     @Override
