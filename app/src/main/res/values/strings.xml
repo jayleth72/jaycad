@@ -6,6 +6,8 @@
     <string name="dialog_non_numerical_data_title">Data Entry Error</string>
     <string name="dialog_non_numerical_data_message">Please enter number characters only</string>
     <string name="dialog_no_data_angle_add_subtract_message">Please enter angle data in degrees, minutes or seconds fields</string>
+    <string name="dialog_no_data_conversion_title">Conversion data fields empty</string>
+    <string name="dialog_no_data_conversion_message">No conversion data has been entered</string>
     <string-array name="length_units_array">
         <item>Feet to Meters</item>
         <item>Metres to Feet</item>

@@ -1,9 +1,11 @@
 package com.applications.jay_letheby.jaycad.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.applications.jay_letheby.jaycad.Activities.MainActivity;
+import com.applications.jay_letheby.jaycad.HelperClasses.Converter;
 import com.applications.jay_letheby.jaycad.R;
 import com.applications.jay_letheby.jaycad.HelperClasses.DataInputChecker;
 import com.applications.jay_letheby.jaycad.HelperClasses.InputFilterMinMax;
@@ -46,7 +49,7 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
     private Button convertBtn;
     private Button mainMenuBtn;
 
-    private EditText convertToTxt;
+    private EditText convertFromTxt;
     private EditText inchTxt;
     private EditText fractionInchTxt;
 
@@ -58,6 +61,10 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
     private TextView runningTotalTxtView;
 
     private Spinner lengthConversionSpinner;
+
+    // Helper class objects
+    private DataInputChecker dataInputChecker;
+    private Converter converter;
 
     private LengthConversionFragmentInteractionListener mListener;
 
@@ -106,7 +113,7 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
         mainMenuBtn = (Button)view.findViewById(R.id.mainMenuBtn);
 
         // Initialise EditTextField
-        convertToTxt = (EditText)view.findViewById(R.id.convertFrom);
+        convertFromTxt = (EditText)view.findViewById(R.id.convertFrom);
         inchTxt = (EditText)view.findViewById(R.id.inchTxt);
         fractionInchTxt = (EditText)view.findViewById(R.id.inchesFractionsTxt);
 
@@ -132,7 +139,6 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
         // attaching data adapter to spinner
         lengthConversionSpinner.setAdapter(adapter);
 
-
         mainMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,9 +154,16 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
         clearConvertToBtn.setOnClickListener(this);
         clearStackBtn.setOnClickListener(this);
 
+        // initalise helper class objects
+        dataInputChecker = new DataInputChecker();
+        converter = new Converter();
+
+        // Set default position of spinner as "feet to metres"
+        lengthConversionSpinner.setSelection(0);
         // Show inch fields as they are default
         showInchFields();
 
+        // Limit the input to 2 digits for inch and Fraction fields
         inchTxt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2)});
         fractionInchTxt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2)});
 
@@ -172,8 +185,11 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
         if (chosenBtn == convertBtn){
             // convert units
             convertMeasurement();
-        } else if (chosenBtn == clearConvertFromBtn)
-             convertToTxt.setText("");
+        } else if (chosenBtn == clearConvertFromBtn) {
+            convertFromTxt.setText("");
+            inchTxt.setText("");
+            fractionInchTxt.setText("");
+        }
           else if (chosenBtn == clearConvertToBtn)
              converToTxtView.setText("");
            else if (chosenBtn == clearStackBtn)
@@ -181,7 +197,60 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
     }
 
     public void convertMeasurement() {
+        // perform conversion according to action chosen from dropdown
+        int convertAction = lengthConversionSpinner.getSelectedItemPosition();
+        // String Array for checking for no data entered
+        String [] conversionDataInput = {convertFromTxt.getText().toString(), inchTxt.getText().toString(), fractionInchTxt.getText().toString()};
 
+        // Check that data has been entered
+        if (dataInputChecker.allInputFieldsEmpty(conversionDataInput)){
+            // show alert dialog if all fields are empty
+            noDataEntered();
+            return;
+        }
+
+        // Check that data is Numerical
+
+        String [] conversionDataDoubleInput = {convertFromTxt.getText().toString()};
+
+        // Check for integer data when converting feet to metress otherwise checkig for double type input
+        if (convertAction == 0) {
+            // Check for integer data when converting feet to metres
+            if (dataInputChecker.isNotNumericData(conversionDataInput, "Integer")) {
+                nonNumericalDataEntered();
+                return;
+            }
+        } else {
+            // Check for double type data
+            if (dataInputChecker.isNotNumericData(conversionDataDoubleInput, "Double")) {
+                nonNumericalDataEntered();
+                return;
+            }
+        }
+
+        switch (convertAction) {
+            case 0:
+                // Feet to Meters
+
+                break;
+            case 1:
+                // Metres to feet
+
+                break;
+            case 2:
+                // Links to Mtres
+
+                break;
+            case 3:
+                // Metres to Links
+
+                break;
+            default:
+                // error
+                // this should never get chosen but put error message here just in case
+                // display error message
+                break;
+        }
     }
 
     @Override
@@ -189,14 +258,11 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
         // On selecting a spinner item
         String item = parent.getItemAtPosition(position).toString();
 
-        // Showing selected spinner item
-        //Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
-
         switch(position) {
             case 0:
                 // Feet to Meters
                 convertUnitTxtView.setText("FEET");
-                convertToTxt.setInputType(InputType.TYPE_CLASS_NUMBER);
+                convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER);
                 showInchFields();
                 clearInputFields();
                 break;
@@ -204,7 +270,7 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
                  // Metres to feet
                 convertUnitTxtView.setText("METRES");
                 // Allow decimal input from metres
-                convertToTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 // Hide Inch fields until selected from dropdown
                 hideInchFields();
                 clearInputFields();
@@ -213,7 +279,7 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
                 // Links to Mtres
                 convertUnitTxtView.setText("LINKS");
                 // Allow decimal input from Links
-                convertToTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 // Hide Inch fields until selected from dropdown
                 hideInchFields();
                 clearInputFields();
@@ -222,7 +288,7 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
                 // Metres to Links
                 convertUnitTxtView.setText("METRES");
                 // Allow decimal input from metres
-                convertToTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 // Hide Inch fields until selected from dropdown
                 hideInchFields();
                 clearInputFields();
@@ -235,9 +301,43 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
 
     }
 
+    public void noDataEntered (){
+
+        // Alert message for no data entered
+        AlertDialog.Builder a_builder = new AlertDialog.Builder(getActivity());
+        a_builder.setMessage(R.string.dialog_no_data_conversion_message)
+                .setTitle(R.string.dialog_no_data_conversion_title)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // User clicked OK button
+                    }
+                });
+        AlertDialog alert = a_builder.create();
+        alert.show();
+    }
+
+    public void nonNumericalDataEntered (){
+
+        // Alert message for no data entered
+        AlertDialog.Builder a_builder = new AlertDialog.Builder(getActivity());
+        a_builder.setMessage(R.string.dialog_non_numerical_data_message)
+                .setTitle(R.string.dialog_non_numerical_data_title)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // User clicked OK button
+                    }
+                });
+        AlertDialog alert = a_builder.create();
+        alert.show();
+    }
+
     public void clearInputFields() {
         // Clear input fields only
-        convertToTxt.setText("");
+        convertFromTxt.setText("");
         inchTxt.setText("");
         fractionInchTxt.setText("");
     }
@@ -264,7 +364,7 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
     public void showInchFields () {
          // Show Inch and Fraction fields and field lables
         convertUnitTxtView.setText("FEET");
-        convertToTxt.setInputType(InputType.TYPE_CLASS_NUMBER);
+        convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         inchTxtView.setVisibility(View.VISIBLE);
         inchFractionTxtView.setVisibility(View.VISIBLE);
