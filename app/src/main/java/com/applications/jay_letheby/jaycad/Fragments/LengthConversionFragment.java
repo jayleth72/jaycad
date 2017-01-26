@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,8 @@ import android.widget.Toast;
 
 import com.applications.jay_letheby.jaycad.Activities.MainActivity;
 import com.applications.jay_letheby.jaycad.R;
+import com.applications.jay_letheby.jaycad.HelperClasses.DataInputChecker;
+import com.applications.jay_letheby.jaycad.HelperClasses.InputFilterMinMax;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +47,12 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
     private Button mainMenuBtn;
 
     private EditText convertToTxt;
+    private EditText inchTxt;
+    private EditText fractionInchTxt;
 
+    private TextView convertUnitTxtView;
+    private TextView inchTxtView;
+    private TextView inchFractionTxtView;
     private TextView converToTxtView;
     private TextView lengthStackTxtView;
     private TextView runningTotalTxtView;
@@ -98,8 +107,13 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
 
         // Initialise EditTextField
         convertToTxt = (EditText)view.findViewById(R.id.convertFrom);
+        inchTxt = (EditText)view.findViewById(R.id.inchTxt);
+        fractionInchTxt = (EditText)view.findViewById(R.id.inchesFractionsTxt);
 
         // Initialise TextViews
+        convertUnitTxtView = (TextView)view.findViewById(R.id.convertUnitTxtView);
+        inchTxtView = (TextView)view.findViewById(R.id.inchTxtView);
+        inchFractionTxtView = (TextView)view.findViewById(R.id.fractionTxtView);
         converToTxtView = (TextView)view.findViewById(R.id.resultTxtView);
         lengthStackTxtView = (TextView)view.findViewById(R.id.resultStackTxtView);
         runningTotalTxtView = (TextView)view.findViewById(R.id.runningTotalTxtView);
@@ -134,6 +148,18 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
         clearConvertToBtn.setOnClickListener(this);
         clearStackBtn.setOnClickListener(this);
 
+        // Show inch fields as they are default
+        showInchFields();
+
+        inchTxt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2)});
+        fractionInchTxt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2)});
+
+        // Limit the number range to 0-11 for inchTxt fields
+        inchTxt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "11")});
+
+        // Limit the number range to 0-15 for fractionInch fields
+        fractionInchTxt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "15")});
+
         // Inflate the layout for this fragment
         return view;
     }
@@ -165,11 +191,55 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
 
         // Showing selected spinner item
         //Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+
+        switch(position) {
+            case 0:
+                // Feet to Meters
+                convertUnitTxtView.setText("FEET");
+                convertToTxt.setInputType(InputType.TYPE_CLASS_NUMBER);
+                showInchFields();
+                clearInputFields();
+                break;
+            case 1:
+                 // Metres to feet
+                convertUnitTxtView.setText("METRES");
+                // Allow decimal input from metres
+                convertToTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                // Hide Inch fields until selected from dropdown
+                hideInchFields();
+                clearInputFields();
+                break;
+            case 2:
+                // Links to Mtres
+                convertUnitTxtView.setText("LINKS");
+                // Allow decimal input from Links
+                convertToTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                // Hide Inch fields until selected from dropdown
+                hideInchFields();
+                clearInputFields();
+                break;
+            case 3:
+                // Metres to Links
+                convertUnitTxtView.setText("METRES");
+                // Allow decimal input from metres
+                convertToTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                // Hide Inch fields until selected from dropdown
+                hideInchFields();
+                clearInputFields();
+                break;
+        }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    public void clearInputFields() {
+        // Clear input fields only
+        convertToTxt.setText("");
+        inchTxt.setText("");
+        fractionInchTxt.setText("");
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -178,6 +248,34 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
             mListener.onLengthConversionFragmentInteraction(uri);
         }
     }
+
+    public void hideInchFields (){
+        // Hide Inc and Fraction fields and field lables
+        inchTxtView.setVisibility(View.INVISIBLE);
+        inchFractionTxtView.setVisibility(View.INVISIBLE);
+        inchTxt.setVisibility(View.INVISIBLE);
+        fractionInchTxt.setVisibility(View.INVISIBLE);
+
+        inchTxt.setEnabled(false);
+        fractionInchTxt.setEnabled(false);
+
+    }
+
+    public void showInchFields () {
+         // Show Inch and Fraction fields and field lables
+        convertUnitTxtView.setText("FEET");
+        convertToTxt.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+        inchTxtView.setVisibility(View.VISIBLE);
+        inchFractionTxtView.setVisibility(View.VISIBLE);
+        inchTxt.setVisibility(View.VISIBLE);
+        fractionInchTxt.setVisibility(View.VISIBLE);
+
+        inchTxt.setEnabled(true);
+        fractionInchTxt.setEnabled(true);
+
+    }
+
 
     @Override
     public void onAttach(Context context) {
