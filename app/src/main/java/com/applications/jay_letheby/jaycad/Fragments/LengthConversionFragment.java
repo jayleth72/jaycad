@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.renderscript.Double2;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -237,19 +238,29 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
             switch (convertAction) {
                 case 0:
                     // Feet to Meters
-                    result = converter.lengthConverter(Converter.LengthConversionOperation.FEET_TO_METRES, 0.0);
+                    result = converter.lengthConverter(Converter.LengthConversionOperation.FEET_TO_METRES,
+                                Double.parseDouble(convertFeetToDecimalFeet(convertMeasure, inchMeasure, fractionalInchMeasure)));
+                    addToStack(roundResult(result, 3));
+                    keepRunningTotal(result, 0);
                     break;
                 case 1:
                     // Metres to feet
                     result = converter.lengthConverter(Converter.LengthConversionOperation.METRES_TO_FEET, Double.parseDouble(convertMeasure));
+                    keepRunningTotal(result, 1);
+                    result = convertDecimalFeet(result);
+                    addToStack(result);
                     break;
                 case 2:
-                    // Links to Mtres
+                    // Links to Metres
                     result = converter.lengthConverter(Converter.LengthConversionOperation.LINKS_TO_METRES, Double.parseDouble(convertMeasure));
+                    addToStack(roundResult(result, 3));
+                    keepRunningTotal(result, 2);
                     break;
                 case 3:
                     // Metres to Links
                     result = converter.lengthConverter(Converter.LengthConversionOperation.METRES_TO_LINKS, Double.parseDouble(convertMeasure));
+                    addToStack(roundResult(result, 3));
+                    keepRunningTotal(result, 3);
                     break;
                 default:
                     // error
@@ -259,9 +270,11 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
             }
 
             // Display result
-            converToTxtView.setText(result);
-            addToStack(result);
-            keepRunningTotal(result);
+            if (convertAction == 1)
+                converToTxtView.setText(result);
+            else
+                converToTxtView.setText(roundResult(result, 3));
+
         }
 
     }
@@ -442,14 +455,31 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
 
     public void addToStack (String result) {
         // Add converted measurement to stack
-        
+
         lengthStackTxtView.append("\n" + result);
     }
 
-    public void keepRunningTotal (String result) {
+    public void keepRunningTotal (String result, int convertAction) {
 
-        runningTotal += Double.parseDouble(result);
-        runningTotalTxtView.setText(Double.toString(runningTotal));
+        String roundedNumber = "";
+
+        try {
+            runningTotal += Double.parseDouble(result);
+
+            if (convertAction == 1) {
+                // metres to feet
+
+                runningTotalTxtView.setText(convertDecimalFeet(runningTotal + ""));
+
+            } else {
+                roundedNumber = roundResult(runningTotal + "", 3);
+                runningTotalTxtView.setText(roundedNumber);
+            }
+
+        }
+        catch (NumberFormatException e) {
+            // TODO : put error message here
+        }
     }
 
     public void changeResultsLabels (String measurement) {
@@ -457,6 +487,93 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
         converToLabelTxtView.setText(measurement);
         stackLabelTxtView.setText("LENGTH STACK" + " (" + measurement + ")");
         runningTotalLabelTxtView.setText("RUNNING TOTAL" + " (" + measurement + ")");
+    }
+
+    public String convertFeetToDecimalFeet(String feetMeasure, String inch, String fractionInch) {
+        // converts feet, inches and inch fractions to decimal feet
+        double feetNumber = 0.0;
+        double inchNumber = 0.0;
+        double fractionInchNumber = 0.0;
+        double decimalFeet = 0.0;
+
+        try {
+            feetNumber = Double.parseDouble(feetMeasure);
+            inchNumber =  Double.parseDouble(inch);
+            fractionInchNumber = Double.parseDouble(fractionInch);
+
+            // 12 inches to a foot and 16 fractionInches to an Inch
+            decimalFeet = feetNumber + (inchNumber * 1/12) + (fractionInchNumber * 1/184);
+
+        }
+        catch (NumberFormatException e) {
+            nonNumericalDataEntered();
+        }
+
+        return Double.toString(decimalFeet);
+
+    }
+
+    public String convertDecimalFeet(String theResult) {
+        double fractionalPart = 0.0;
+        double integralPart = 0.0;
+        int feetPart = 0;
+        int inchPart = 0;
+        int inchFractionPart = 0;
+        Double calc = 0.0;
+        String formattedFeetMeasure = "";
+
+        try {
+            fractionalPart = Double.parseDouble(theResult) % 1;
+            integralPart = Double.parseDouble(theResult) - fractionalPart;
+            feetPart = (int) integralPart;
+
+            // Get inches
+            calc = fractionalPart / (0.08333);
+
+            fractionalPart = calc % 1;
+            integralPart = calc - fractionalPart;
+            inchPart = (int)integralPart;
+
+            // Get inch fractions
+            calc = fractionalPart / 0.0625;
+            fractionalPart = calc % 1;
+            integralPart = calc - fractionalPart;
+            inchFractionPart = (int)integralPart;
+
+        }
+        catch (NumberFormatException e) {
+            // TODO : put error message here
+
+        }
+
+        if (feetPart == 0)
+            formattedFeetMeasure = "0ft ";
+        else
+            formattedFeetMeasure = feetPart + "ft ";
+
+        if (inchPart == 0)
+            formattedFeetMeasure += " 0\"";
+        else
+            formattedFeetMeasure += inchPart + "\" ";
+
+        if (inchFractionPart > 0)
+            formattedFeetMeasure +=  inchFractionPart + "/16";
+
+        return formattedFeetMeasure;
+    }
+
+    public String roundResult (String result, int roundTo) {
+        // Round the result to set number of figures
+        Double roundedNumber = 0.0;
+         try {
+             roundedNumber = Double.parseDouble(result);
+             roundedNumber = DecimalUtils.round(roundedNumber, roundTo);
+         }
+         catch (NumberFormatException e){
+             // TODO : put error message here
+
+         }
+        return roundedNumber + "";
     }
 
     // TODO: Rename method, update argument and hook method into UI event
