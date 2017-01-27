@@ -1,5 +1,6 @@
 package com.applications.jay_letheby.jaycad.HelperClasses;
 
+import com.applications.jay_letheby.jaycad.HelperClasses.DecimalUtils;
 /**
  * Created by jay_the_superwarrior on 25/01/2017.
  * This class is used to convert both area and length measurements
@@ -26,22 +27,25 @@ public class Converter {
             case FEET_TO_METRES:
                 convertedMeasurement = convertToDecimalFeet(measurementToConvert);
                 convertedMeasurement = convertedMeasurement * 0.3048;
-                formattedResult = convertedMeasurement + "metres";
+
                 break;
             case METRES_TO_FEET:
                 convertedMeasurement = measurementToConvert * 3.28084;
-                formattedResult = convertedMeasurement + "feet";
+
                 break;
             case LINKS_TO_METRES:
                 convertedMeasurement = measurementToConvert * 0.201168;
-                formattedResult = convertedMeasurement + "metres";
+
                 break;
             case METRES_TO_LINKS:
                 convertedMeasurement = measurementToConvert * 4.9709595959;
-                formattedResult = convertedMeasurement + "links";
+
                 break;
 
         }
+        // return result to 3 decimal places
+        convertedMeasurement = DecimalUtils.round(convertedMeasurement, 3);
+        formattedResult = convertedMeasurement.toString();
         return formattedResult;
     }
 

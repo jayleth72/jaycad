@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import com.applications.jay_letheby.jaycad.HelperClasses.Converter;
 import com.applications.jay_letheby.jaycad.R;
 import com.applications.jay_letheby.jaycad.HelperClasses.DataInputChecker;
 import com.applications.jay_letheby.jaycad.HelperClasses.InputFilterMinMax;
-
+import com.applications.jay_letheby.jaycad.HelperClasses.DecimalUtils;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -59,9 +60,16 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
     private TextView inchFractionTxtView;
     private TextView converToTxtView;
     private TextView lengthStackTxtView;
+
     private TextView runningTotalTxtView;
+    private TextView converToLabelTxtView;
+    private TextView stackLabelTxtView;
+    private TextView runningTotalLabelTxtView;
 
     private Spinner lengthConversionSpinner;
+
+    // Keeps running total of measurements in the stack
+    private double runningTotal = 0;
 
     // Helper class objects
     private DataInputChecker dataInputChecker;
@@ -125,6 +133,9 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
         converToTxtView = (TextView)view.findViewById(R.id.resultTxtView);
         lengthStackTxtView = (TextView)view.findViewById(R.id.resultStackTxtView);
         runningTotalTxtView = (TextView)view.findViewById(R.id.runningTotalTxtView);
+        converToLabelTxtView = (TextView)view.findViewById(R.id.converToLabel);
+        stackLabelTxtView = (TextView)view.findViewById(R.id.stackLabelTxtView);
+        runningTotalLabelTxtView = (TextView)view.findViewById(R.id.runTotalLabelTxtView);
 
         // Initialise spinner
         lengthConversionSpinner = (Spinner)view.findViewById(R.id.units1Spinner);
@@ -174,6 +185,9 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
         // Limit the number range to 0-15 for fractionInch fields
         fractionInchTxt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "15")});
 
+        // Set Length Stack to be scrollable
+        lengthStackTxtView.setMovementMethod(new ScrollingMovementMethod());
+
         // Inflate the layout for this fragment
         return view;
     }
@@ -193,8 +207,10 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
         }
           else if (chosenBtn == clearConvertToBtn)
              converToTxtView.setText("");
-           else if (chosenBtn == clearStackBtn)
-             lengthStackTxtView.setText("");
+          else if (chosenBtn == clearStackBtn) {
+            lengthStackTxtView.setText("");
+            runningTotalTxtView.setText("");
+        }
     }
 
     public void convertMeasurement() {
@@ -206,6 +222,107 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
         String inchMeasure = "";
         String fractionalInchMeasure = "";
 
+        // Check data input
+        if (isDataInputOK(convertAction)){
+            // Get Input data
+            convertMeasure = convertFromTxt.getText().toString();
+            inchMeasure = inchTxt.getText().toString();
+            fractionalInchMeasure = fractionInchTxt.getText().toString();
+
+            // Convert no input to zeros
+            convertMeasure = (convertMeasure.length() > 0) ? convertMeasure : "0";
+            inchMeasure = (inchMeasure.length() > 0) ? inchMeasure : "0";
+            fractionalInchMeasure = (fractionalInchMeasure.length() > 0) ? fractionalInchMeasure : "0";
+
+            switch (convertAction) {
+                case 0:
+                    // Feet to Meters
+                    result = converter.lengthConverter(Converter.LengthConversionOperation.FEET_TO_METRES, 0.0);
+                    break;
+                case 1:
+                    // Metres to feet
+                    result = converter.lengthConverter(Converter.LengthConversionOperation.METRES_TO_FEET, Double.parseDouble(convertMeasure));
+                    break;
+                case 2:
+                    // Links to Mtres
+                    result = converter.lengthConverter(Converter.LengthConversionOperation.LINKS_TO_METRES, Double.parseDouble(convertMeasure));
+                    break;
+                case 3:
+                    // Metres to Links
+                    result = converter.lengthConverter(Converter.LengthConversionOperation.METRES_TO_LINKS, Double.parseDouble(convertMeasure));
+                    break;
+                default:
+                    // error
+                    // this should never get chosen but put error message here just in case
+                    // display error message
+                    break;
+            }
+
+            // Display result
+            converToTxtView.setText(result);
+            addToStack(result);
+            keepRunningTotal(result);
+        }
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
+
+        clearAll();
+
+        switch(position) {
+            case 0:
+                // Feet to Meters
+                convertUnitTxtView.setText("FEET");
+                convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER);
+                showInchFields();
+                clearInputFields();
+                changeResultsLabels("METRES");
+                break;
+            case 1:
+                 // Metres to feet
+                convertUnitTxtView.setText("METRES");
+                // Allow decimal input from metres
+                convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                // Hide Inch fields until selected from dropdown
+                hideInchFields();
+                clearInputFields();
+                changeResultsLabels("FEET");
+                break;
+            case 2:
+                // Links to Mtres
+                convertUnitTxtView.setText("LINKS");
+                // Allow decimal input from Links
+                convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                // Hide Inch fields until selected from dropdown
+                hideInchFields();
+                clearInputFields();
+                changeResultsLabels("METRES");
+                break;
+            case 3:
+                // Metres to Links
+                convertUnitTxtView.setText("METRES");
+                // Allow decimal input from metres
+                convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                // Hide Inch fields until selected from dropdown
+                hideInchFields();
+                clearInputFields();
+                changeResultsLabels("LINKS");
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    public boolean isDataInputOK (int convertAction) {
+        // Checks for no data entered and non-numerical data
+
         // String Array for checking for no data entered
         String [] conversionDataInput = {convertFromTxt.getText().toString(), inchTxt.getText().toString(), fractionInchTxt.getText().toString()};
 
@@ -213,7 +330,7 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
         if (dataInputChecker.allInputFieldsEmpty(conversionDataInput)){
             // show alert dialog if all fields are empty
             noDataEntered();
-            return;
+            return false;
         }
 
         // Check that data is Numerical
@@ -225,100 +342,33 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
             // Check for integer data when converting feet to metres
             if (dataInputChecker.isNotNumericData(conversionDataInput, "Integer")) {
                 nonNumericalDataEntered();
-                return;
+                return false;
             }
         } else {
             // Check for double type data
             if (dataInputChecker.isNotNumericData(conversionDataDoubleInput, "Double")) {
                 nonNumericalDataEntered();
-                return;
+                return false;
             }
         }
 
-        // Get Input data
-        convertMeasure = convertFromTxt.getText().toString();
-        inchMeasure = inchTxt.getText().toString();
-        fractionalInchMeasure = fractionInchTxt.getText().toString();
-
-        // Convert no input to zeros
-        convertMeasure = (convertMeasure.length() > 0) ? convertMeasure : "0";
-        inchMeasure = (inchMeasure.length() > 0) ? inchMeasure : "0";
-        fractionalInchMeasure = (fractionalInchMeasure.length() > 0) ? fractionalInchMeasure : "0";
-
-        switch (convertAction) {
-            case 0:
-                // Feet to Meters
-                result = converter.lengthConverter(Converter.LengthConversionOperation.FEET_TO_METRES, 0.0);
-                break;
-            case 1:
-                // Metres to feet
-                result = converter.lengthConverter(Converter.LengthConversionOperation.METRES_TO_FEET, Double.parseDouble(convertMeasure));
-                break;
-            case 2:
-                // Links to Mtres
-                result = converter.lengthConverter(Converter.LengthConversionOperation.LINKS_TO_METRES, Double.parseDouble(convertMeasure));
-                break;
-            case 3:
-                // Metres to Links
-                result = converter.lengthConverter(Converter.LengthConversionOperation.METRES_TO_LINKS, Double.parseDouble(convertMeasure));
-                break;
-            default:
-                // error
-                // this should never get chosen but put error message here just in case
-                // display error message
-                break;
-        }
-
-        // Display result
-        converToTxtView.setText(result);
+        // there is data and is numerical
+        return true;
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // On selecting a spinner item
-        String item = parent.getItemAtPosition(position).toString();
+    public void clearAll () {
+        // Clears all EditText Fields and Results, Length Stack
+        // and Running Stack Text Views
 
-        switch(position) {
-            case 0:
-                // Feet to Meters
-                convertUnitTxtView.setText("FEET");
-                convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER);
-                showInchFields();
-                clearInputFields();
-                break;
-            case 1:
-                 // Metres to feet
-                convertUnitTxtView.setText("METRES");
-                // Allow decimal input from metres
-                convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-                // Hide Inch fields until selected from dropdown
-                hideInchFields();
-                clearInputFields();
-                break;
-            case 2:
-                // Links to Mtres
-                convertUnitTxtView.setText("LINKS");
-                // Allow decimal input from Links
-                convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-                // Hide Inch fields until selected from dropdown
-                hideInchFields();
-                clearInputFields();
-                break;
-            case 3:
-                // Metres to Links
-                convertUnitTxtView.setText("METRES");
-                // Allow decimal input from metres
-                convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-                // Hide Inch fields until selected from dropdown
-                hideInchFields();
-                clearInputFields();
-                break;
-        }
-    }
+        convertFromTxt.setText("");
+        inchTxt.setText("");
+        fractionInchTxt.setText("");
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+        lengthStackTxtView.setText("");
+        runningTotalTxtView.setText("");
+        converToTxtView.setText("");
 
+        runningTotal = 0.0;
     }
 
     public void noDataEntered (){
@@ -362,12 +412,6 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
         fractionInchTxt.setText("");
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onLengthConversionFragmentInteraction(uri);
-        }
-    }
 
     public void hideInchFields (){
         // Hide Inc and Fraction fields and field lables
@@ -396,6 +440,31 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
 
     }
 
+    public void addToStack (String result) {
+        // Add converted measurement to stack
+        
+        lengthStackTxtView.append("\n" + result);
+    }
+
+    public void keepRunningTotal (String result) {
+
+        runningTotal += Double.parseDouble(result);
+        runningTotalTxtView.setText(Double.toString(runningTotal));
+    }
+
+    public void changeResultsLabels (String measurement) {
+        // change labels according to conversion chosen
+        converToLabelTxtView.setText(measurement);
+        stackLabelTxtView.setText("LENGTH STACK" + " (" + measurement + ")");
+        runningTotalLabelTxtView.setText("RUNNING TOTAL" + " (" + measurement + ")");
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onLengthConversionFragmentInteraction(uri);
+        }
+    }
 
     @Override
     public void onAttach(Context context) {
