@@ -222,42 +222,42 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
 
         switch(position) {
             case 0:
-                // Feet to Meters
-                convertUnitTxtView.setText("FEET");
-                convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER);
-                showRoodPerchFields();
+                // Acres to Hectares
+                convertUnitTxtView.setText("ACRES");
+                convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                hideRoodPerchFields();
                 clearInputFields();
-                changeResultsLabels("METRES");
+                changeResultsLabels("HECTARES");
                 break;
             case 1:
-                // Metres to feet
-                convertUnitTxtView.setText("METRES");
+                // Hectares to Acres
+                convertUnitTxtView.setText("HECTARES");
                 // Allow decimal input from metres
                 convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 // Hide Inch fields until selected from dropdown
                 hideRoodPerchFields();
                 clearInputFields();
-                changeResultsLabels("FEET");
+                changeResultsLabels("ACRES");
                 break;
             case 2:
-                // Links to Mtres
-                convertUnitTxtView.setText("LINKS");
+                // Acres roods & perches to Hectares
+                convertUnitTxtView.setText("ACRES");
                 // Allow decimal input from Links
-                convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-                // Hide Inch fields until selected from dropdown
-                hideRoodPerchFields();
+                convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER );
+
+                showRoodPerchFields();
                 clearInputFields();
-                changeResultsLabels("METRES");
+                changeResultsLabels("HECTARES");
                 break;
             case 3:
-                // Metres to Links
-                convertUnitTxtView.setText("METRES");
+                // Hectares to Acres, Roods and Perches
+                convertUnitTxtView.setText("HECTARES");
                 // Allow decimal input from metres
                 convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 // Hide Inch fields until selected from dropdown
                 hideRoodPerchFields();
                 clearInputFields();
-                changeResultsLabels("LINKS");
+                changeResultsLabels("ACRES, ROODS & PERCHES");
                 break;
         }
     }
@@ -276,7 +276,7 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
 
     public void showRoodPerchFields () {
         // Show Rood and Perches fields and field lables
-        convertUnitTxtView.setText("FEET");
+        convertUnitTxtView.setText("ACRES");
         convertFromTxt.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         roodTxtView.setVisibility(View.VISIBLE);
