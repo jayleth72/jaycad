@@ -58,7 +58,7 @@
             android:textColor="#FFCC00"
             android:layout_marginTop="15dp" />
 
-        <Button
+        <!--<Button
             android:text="Bakery Finder"
             android:layout_width="300dp"
             android:layout_height="60dp"
@@ -67,7 +67,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/jaycad_menu_button"
             android:textColor="#FFCC00"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp" />-->
 
         <Button
             android:text="About"

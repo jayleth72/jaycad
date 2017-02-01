@@ -14,4 +14,10 @@
         <item>Links to Metres</item>
         <item>Metres to Links</item>
     </string-array>
+    <string-array name="area_units_array">
+        <item>Acres to Hectares</item>
+        <item>Hectares to Acres</item>
+        <item>Acres, Roods &amp; Perches to Hecatres</item>
+        <item>Hectares to Acres, Roods &amp; Perches</item>
+    </string-array>
 </resources>
