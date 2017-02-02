@@ -4,159 +4,161 @@
     android:layout_height="match_parent"
     tools:context="com.applications.jay_letheby.jaycad.Fragments.AngleConversionFragment">
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
-        <TextView
-            android:text="Angle Conversion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView"
-            tools:text="Angle Conversion"
-            android:textAlignment="center"
-            android:textSize="35sp"
-            android:textColor="#FFF"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
-
+        android:layout_height="match_parent">
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
 
             <TextView
-                android:text="DEGREES"
-                android:layout_width="wrap_content"
+                android:text="Angle Conversion"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2"
-                android:layout_weight="1"
-                android:textSize="20sp" />
+                android:id="@+id/textView"
+                tools:text="Angle Conversion"
+                android:textAlignment="center"
+                android:textSize="35sp"
+                android:textColor="#FFF"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp">
+
+                <TextView
+                    android:text="DEGREES"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView2"
+                    android:layout_weight="1"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:text="MINUTES"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView4"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="16dp" />
+
+                <TextView
+                    android:text="SECONDS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView3"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="15dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/degreeTxt"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:background="@drawable/edit_text_border"
+                    android:textColor="@color/colorEditText"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="15dp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/degreesMinTxt"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:background="@drawable/edit_text_border"
+                    android:layout_marginRight="30dp"
+                    android:textColor="@color/colorEditText" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/degreesSecondsTxt"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:background="@drawable/edit_text_border"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@color/colorEditText" />
+
+            </LinearLayout>
+
+            <Button
+                android:text="convert"
+                android:layout_height="60dp"
+                android:id="@+id/convertBtn"
+                android:textSize="24sp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/action_buttons"
+                android:textColor="@color/colorActionButtonsText"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="150dp" />
 
             <TextView
-                android:text="MINUTES"
-                android:layout_width="wrap_content"
+                android:text="DECIMAL DEGREES"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView4"
-                android:layout_weight="1"
+                android:id="@+id/textView5"
                 android:textSize="20sp"
-                android:layout_marginLeft="16dp" />
-
-            <TextView
-                android:text="SECONDS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView3"
-                android:layout_weight="1"
-                android:textSize="20sp"
+                android:layout_marginTop="0dp"
                 android:layout_marginLeft="15dp" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
+                android:layout_width="match_parent"
+                android:inputType="numberDecimal"
                 android:ems="10"
-                android:id="@+id/degreeTxt"
-                android:layout_weight="1"
-                android:text="40"
+                android:id="@+id/decimalDegreesTxt"
                 android:background="@drawable/edit_text_border"
-                android:textColor="@color/colorEditText"
-                android:layout_marginRight="30dp"
-                android:layout_marginLeft="15dp" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/degreesMinTxt"
-                android:layout_weight="1"
-                android:text="40"
-                android:background="@drawable/edit_text_border"
-                android:layout_marginRight="30dp"
-                android:textColor="@color/colorEditText" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/degreesSecondsTxt"
-                android:layout_weight="1"
-                android:text="40"
-                android:background="@drawable/edit_text_border"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
+                android:layout_height="50dp"
                 android:textColor="@color/colorEditText" />
 
+
+            <Button
+                android:text="clear"
+                android:layout_height="60dp"
+                android:id="@+id/clearBtn"
+                android:textSize="24sp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/action_buttons"
+                android:textColor="@color/colorActionButtonsText"
+                android:layout_marginTop="15dp"
+                android:layout_width="150dp" />
+
+            <Button
+                android:text="main menu"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:id="@+id/mainMenuBtn"
+                android:textSize="24sp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/jaycad_menu_button"
+                android:textColor="#FFCC00"
+                android:layout_marginTop="15dp" />
+
+
         </LinearLayout>
-
-        <Button
-            android:text="convert"
-            android:layout_height="60dp"
-            android:id="@+id/convertBtn"
-            android:textSize="24sp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/action_buttons"
-            android:textColor="@color/colorActionButtonsText"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="15dp"
-            android:layout_width="150dp" />
-
-        <TextView
-            android:text="DECIMAL DEGREES"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView5"
-            android:textSize="20sp"
-            android:layout_marginTop="0dp"
-            android:layout_marginLeft="15dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:inputType="numberDecimal"
-            android:ems="10"
-            android:id="@+id/decimalDegreesTxt"
-            android:background="@drawable/edit_text_border"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_height="50dp"
-            android:textColor="@color/colorEditText" />
-
-
-        <Button
-            android:text="clear"
-            android:layout_height="60dp"
-            android:id="@+id/clearBtn"
-            android:textSize="24sp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/action_buttons"
-            android:textColor="@color/colorActionButtonsText"
-            android:layout_marginTop="15dp"
-            android:layout_width="150dp" />
-
-        <Button
-            android:text="main menu"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:id="@+id/mainMenuBtn"
-            android:textSize="24sp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/jaycad_menu_button"
-            android:textColor="#FFCC00"
-            android:layout_marginTop="15dp" />
-
-
-    </LinearLayout>
-
+    </ScrollView>
 </FrameLayout>

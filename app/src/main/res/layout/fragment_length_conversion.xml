@@ -4,302 +4,307 @@
     android:layout_height="match_parent"
     tools:context="com.applications.jay_letheby.jaycad.Fragments.LengthConversionFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="1">
-
-
-        <TextView
-            android:text="Length Conversion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView"
-            tools:text="Length Conversion"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:textColor="#FFF"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
-
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:text="MEASUREMENT"
-                android:layout_height="wrap_content"
-                android:id="@+id/convertUnitTxtView"
-                android:layout_marginLeft="15dp"
-                android:textSize="13sp"
-                android:layout_weight="1.15"
-                android:layout_marginRight="45dp"
-                android:layout_width="95dp" />
-
-            <TextView
-                android:text="INCH"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/inchTxtView"
-                android:layout_marginLeft="15dp"
-                android:textSize="13sp"
-                android:layout_marginRight="15dp" />
-
-            <TextView
-                android:text="FRAC"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fractionTxtView"
-                android:layout_marginLeft="5dp"
-                android:textSize="13sp"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:weightSum="1"
-            android:layout_height="38dp">
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:inputType="numberDecimal"
-                android:ems="10"
-                android:id="@+id/convertFrom"
-                android:text="40"
-                android:background="@drawable/edit_text_border"
-                android:textColor="@color/colorEditText"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="0.84" />
-
-            <EditText
-                android:layout_width="52dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/inchTxt"
-                android:background="@drawable/edit_text_border"
-                android:textColor="@color/colorEditText"
-                android:layout_marginRight="5dp"
-                android:layout_weight="0.13" />
-
-            <EditText
-                android:layout_width="52dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/inchesFractionsTxt"
-                android:background="@drawable/edit_text_border"
-                android:textColor="@color/colorEditText"
-                android:layout_marginRight="5dp"
-                android:layout_weight="0.12" />
-
-            <Button
-                android:text="clear"
-                android:layout_width="77dp"
-                android:layout_height="match_parent"
-                android:id="@+id/clearConvertFromBtn"
-                android:layout_gravity="start"
-                android:background="@drawable/action_buttons"
-                android:textColor="@color/colorActionButtonsText"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:contextClickable="true"
-            android:layout_height="38dp">
-
-            <Button
-                android:text="convert"
-                android:id="@+id/convertBtn"
-                android:textSize="24sp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/action_buttons"
-                android:textColor="@color/colorActionButtonsText"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="15dp"
-                android:layout_width="150dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_height="38dp" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_marginRight="15dp"
-                android:layout_weight=".28"
-                android:background="@drawable/spinner_conversion"
-                android:orientation="horizontal"
-                android:layout_marginBottom="5dp"
-                android:layout_height="38dp">
-
-                <Spinner
-                    android:id="@+id/units1Spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:spinnerMode="dropdown" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_action_dropdown" />
-
-
-            </RelativeLayout>
-        </LinearLayout>
-
-        <TextView
-            android:text="CONVERT TO"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/converToLabel"
-            android:textSize="13sp"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:weightSum="1"
-            android:layout_height="38dp">
-
-            <TextView
-                android:text=""
-                android:layout_width="226dp"
-                android:layout_height="match_parent"
-                android:id="@+id/resultTxtView"
-                android:textSize="17sp"
-                android:textAlignment="gravity"
-                android:layout_gravity="end"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/results_text_view"
-                android:textColor="@color/colorResutsTextViewFontColor"
-                android:gravity="start"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="0.70"
-                android:layout_marginBottom="0dp" />
-
-            <Button
-                android:text="clear"
-                android:layout_width="74dp"
-                android:layout_height="match_parent"
-                android:id="@+id/clearResultBtn"
-                android:layout_gravity="start"
-                android:background="@drawable/action_buttons"
-                android:textColor="@color/colorActionButtonsText"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp" />
-        </LinearLayout>
-
-        <TextView
-            android:text="LENGTH STACK"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/stackLabelTxtView"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:textSize="13sp" />
-
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="87dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             android:weightSum="1">
 
+
             <TextView
-                android:text="length stack"
-                android:layout_width="90dp"
-                android:layout_height="match_parent"
-                android:id="@+id/resultStackTxtView"
-                android:textSize="15sp"
-                android:textAlignment="gravity"
-                android:layout_gravity="start|end"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/stack_results_text_view"
-                android:textColor="@color/colorResutsTextViewFontColor"
+                android:text="Length Conversion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView"
+                tools:text="Length Conversion"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textColor="#FFF"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="MEASUREMENT"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/convertUnitTxtView"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="13sp"
+                    android:layout_weight="1.15"
+                    android:layout_marginRight="45dp"
+                    android:layout_width="95dp" />
+
+                <TextView
+                    android:text="INCH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/inchTxtView"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="13sp"
+                    android:layout_marginRight="15dp" />
+
+                <TextView
+                    android:text="FRAC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fractionTxtView"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="13sp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:weightSum="1"
+                android:layout_height="38dp">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/convertFrom"
+                    android:text="40"
+                    android:background="@drawable/edit_text_border"
+                    android:textColor="@color/colorEditText"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="0.84" />
+
+                <EditText
+                    android:layout_width="52dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/inchTxt"
+                    android:background="@drawable/edit_text_border"
+                    android:textColor="@color/colorEditText"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="0.13" />
+
+                <EditText
+                    android:layout_width="52dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/inchesFractionsTxt"
+                    android:background="@drawable/edit_text_border"
+                    android:textColor="@color/colorEditText"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="0.12" />
+
+                <Button
+                    android:text="clear"
+                    android:layout_width="77dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/clearConvertFromBtn"
+                    android:layout_gravity="start"
+                    android:background="@drawable/action_buttons"
+                    android:textColor="@color/colorActionButtonsText"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:contextClickable="true"
+                android:layout_height="38dp">
+
+                <Button
+                    android:text="convert"
+                    android:id="@+id/convertBtn"
+                    android:textSize="24sp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/action_buttons"
+                    android:textColor="@color/colorActionButtonsText"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_width="150dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_height="38dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight=".28"
+                    android:background="@drawable/spinner_conversion"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="38dp">
+
+                    <Spinner
+                        android:id="@+id/units1Spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:spinnerMode="dropdown" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_action_dropdown"
+                        android:background="@color/colorBgEditText" />
+
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:text="CONVERT TO"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/converToLabel"
+                android:textSize="13sp"
+                android:layout_marginRight="15dp"
                 android:layout_marginLeft="15dp"
-                android:layout_weight="0.91"
-                android:gravity="bottom"
-                android:scrollbars="vertical"
-                android:scrollbarStyle="insideInset"
-                android:fadeScrollbars="false"/>
+                android:layout_marginTop="5dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:weightSum="1"
+                android:layout_height="38dp">
+
+                <TextView
+                    android:text=""
+                    android:layout_width="226dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/resultTxtView"
+                    android:textSize="17sp"
+                    android:textAlignment="gravity"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/results_text_view"
+                    android:textColor="@color/colorResutsTextViewFontColor"
+                    android:gravity="start"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="0.70"
+                    android:layout_marginBottom="0dp" />
+
+                <Button
+                    android:text="clear"
+                    android:layout_width="74dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/clearResultBtn"
+                    android:layout_gravity="start"
+                    android:background="@drawable/action_buttons"
+                    android:textColor="@color/colorActionButtonsText"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp" />
+            </LinearLayout>
+
+            <TextView
+                android:text="LENGTH STACK"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/stackLabelTxtView"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:textSize="13sp" />
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="87dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:text="length stack"
+                    android:layout_width="90dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/resultStackTxtView"
+                    android:textSize="15sp"
+                    android:textAlignment="gravity"
+                    android:layout_gravity="start|end"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/stack_results_text_view"
+                    android:textColor="@color/colorResutsTextViewFontColor"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="0.91"
+                    android:gravity="bottom"
+                    android:scrollbars="vertical"
+                    android:scrollbarStyle="insideInset"
+                    android:fadeScrollbars="false"/>
+
+                <Button
+                    android:text="clear stack"
+                    android:layout_width="75dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/clearStackBtn"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/action_buttons"
+                    android:textColor="@color/colorActionButtonsText"
+                    android:layout_marginLeft="5dp" />
+            </LinearLayout>
+
+            <TextView
+                android:text="RUNNING TOTAL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/runTotalLabelTxtView"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:weightSum="1"
+                android:layout_height="38dp">
+
+                <TextView
+                    android:text="total"
+                    android:layout_width="226dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/runningTotalTxtView"
+                    android:textSize="17sp"
+                    android:textAlignment="gravity"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/results_text_view"
+                    android:textColor="@color/colorResutsTextViewFontColor"
+                    android:gravity="start"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="0.15"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
 
             <Button
-                android:text="clear stack"
-                android:layout_width="75dp"
-                android:layout_height="match_parent"
-                android:id="@+id/clearStackBtn"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/action_buttons"
-                android:textColor="@color/colorActionButtonsText"
-                android:layout_marginLeft="5dp" />
-        </LinearLayout>
+                android:text="main menu"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:id="@+id/mainMenuBtn"
+                android:textSize="24sp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/jaycad_menu_button"
+                android:textColor="#FFCC00"
+                android:layout_marginTop="15dp" />
 
-        <TextView
-            android:text="RUNNING TOTAL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/runTotalLabelTxtView"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:textSize="13sp" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:weightSum="1"
-            android:layout_height="38dp">
-
-            <TextView
-                android:text="total"
-                android:layout_width="226dp"
-                android:layout_height="match_parent"
-                android:id="@+id/runningTotalTxtView"
-                android:textSize="17sp"
-                android:textAlignment="gravity"
-                android:layout_gravity="end"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/results_text_view"
-                android:textColor="@color/colorResutsTextViewFontColor"
-                android:gravity="start"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="0.15"
-                android:scrollbars="vertical" />
 
         </LinearLayout>
-
-        <Button
-            android:text="main menu"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:id="@+id/mainMenuBtn"
-            android:textSize="24sp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/jaycad_menu_button"
-            android:textColor="#FFCC00"
-            android:layout_marginTop="15dp" />
-
-
-    </LinearLayout>
-
+    </ScrollView>
 </FrameLayout>

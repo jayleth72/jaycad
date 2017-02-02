@@ -4,304 +4,307 @@
     android:layout_height="match_parent"
     tools:context="com.applications.jay_letheby.jaycad.Fragments.AngleAddSubtractFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:text="Angle Add Subtract"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView1"
-            tools:text="Angle Add Subtract"
-            android:textAlignment="center"
-            android:textSize="35sp"
-            android:textColor="#FFF"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp">
+            android:orientation="vertical">
 
             <TextView
-                android:text="DEGREES"
-                android:layout_width="wrap_content"
+                android:text="Angle Add Subtract"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2"
-                android:textSize="12sp"
-                android:layout_marginLeft="65dp"
-                android:layout_marginRight="8dp"
-                android:layout_weight="0.03" />
+                android:id="@+id/textView1"
+                tools:text="Angle Add Subtract"
+                android:textAlignment="center"
+                android:textSize="35sp"
+                android:textColor="#FFF"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
 
-            <TextView
-                android:text="MINUTES"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView3"
-                android:textSize="12sp"
-                android:layout_marginLeft="9dp"
-                android:layout_weight="0.07" />
+                android:layout_marginLeft="15dp">
 
-            <TextView
-                android:text="SECONDS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView4"
-                android:layout_weight="0.58"
-                android:textSize="12sp"
-                android:layout_marginLeft="5dp" />
+                <TextView
+                    android:text="DEGREES"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView2"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="65dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="0.03" />
 
-        </LinearLayout>
+                <TextView
+                    android:text="MINUTES"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView3"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="9dp"
+                    android:layout_weight="0.07" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="25dp"
-            android:weightSum="1">
+                <TextView
+                    android:text="SECONDS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView4"
+                    android:layout_weight="0.58"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="5dp" />
 
-            <TextView
-                android:text="Angle"
-                android:layout_width="76dp"
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/textView5"
-                android:textSize="25sp"
-                android:textAlignment="viewEnd"
-                android:layout_gravity="end"
-                android:layout_marginRight="5dp" />
+                android:layout_marginBottom="25dp"
+                android:weightSum="1">
 
-            <EditText
-                android:layout_width="54dp"
+                <TextView
+                    android:text="Angle"
+                    android:layout_width="76dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textView5"
+                    android:textSize="25sp"
+                    android:textAlignment="viewEnd"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="5dp" />
+
+                <EditText
+                    android:layout_width="54dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/degrees1Txt"
+                    android:background="@drawable/edit_text_border"
+                    android:textColor="@color/colorEditText"
+                    android:layout_marginRight="15dp" />
+
+                <EditText
+                    android:layout_width="52dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/minutes1Txt"
+                    android:background="@drawable/edit_text_border"
+                    android:textColor="@color/colorEditText"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="0.13" />
+
+                <EditText
+                    android:layout_width="52dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/seconds1Txt"
+                    android:background="@drawable/edit_text_border"
+                    android:textColor="@color/colorEditText"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="0.12" />
+
+                <Button
+                    android:text="clear"
+                    android:layout_width="59dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/clear1Btn"
+                    android:layout_gravity="start"
+                    android:background="@drawable/action_buttons"
+                    android:textColor="@color/colorActionButtonsText"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="25dp">
+
+
+                <Button
+                    android:text="add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/addBtn"
+                    android:layout_weight="1"
+                    android:layout_gravity="start"
+                    android:background="@drawable/action_buttons"
+                    android:textColor="@color/colorActionButtonsText"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginLeft="80dp" />
+
+                <Button
+                    android:text="subtract"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/subtractBtn"
+                    android:layout_weight="1"
+                    android:layout_gravity="end"
+                    android:background="@drawable/action_buttons"
+                    android:textColor="@color/colorActionButtonsText"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="30dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/degrees1Txt"
-                android:background="@drawable/edit_text_border"
-                android:textColor="@color/colorEditText"
-                android:layout_marginRight="15dp" />
+                android:layout_marginLeft="15dp">
 
-            <EditText
-                android:layout_width="52dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/minutes1Txt"
-                android:background="@drawable/edit_text_border"
-                android:textColor="@color/colorEditText"
-                android:layout_marginRight="15dp"
-                android:layout_weight="0.13" />
+                <TextView
+                    android:text="DEGREES"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView6"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="65dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="0.03" />
 
-            <EditText
-                android:layout_width="52dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/seconds1Txt"
-                android:background="@drawable/edit_text_border"
-                android:textColor="@color/colorEditText"
-                android:layout_marginRight="5dp"
-                android:layout_weight="0.12" />
+                <TextView
+                    android:text="MINUTES"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView7"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="9dp"
+                    android:layout_weight="0.07" />
 
+                <TextView
+                    android:text="SECONDS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView8"
+                    android:layout_weight="0.58"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="5dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:text="Angle"
+                    android:layout_width="76dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textView9"
+                    android:textSize="25sp"
+                    android:textAlignment="viewEnd"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="5dp" />
+
+                <EditText
+                    android:layout_width="54dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/degrees2Txt"
+                    android:background="@drawable/edit_text_border"
+                    android:textColor="@color/colorEditText"
+                    android:layout_marginRight="15dp" />
+
+                <EditText
+                    android:layout_width="52dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/minutes2Txt"
+                    android:background="@drawable/edit_text_border"
+                    android:textColor="@color/colorEditText"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="0.13" />
+
+                <EditText
+                    android:layout_width="52dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/seconds2Txt"
+                    android:background="@drawable/edit_text_border"
+                    android:textColor="@color/colorEditText"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="0.12" />
+
+                <Button
+                    android:text="clear"
+                    android:layout_width="59dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/clear2Btn"
+                    android:layout_gravity="start"
+                    android:background="@drawable/action_buttons"
+                    android:textColor="@color/colorActionButtonsText"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:text="Result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textView10"
+                    android:textSize="25sp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center_vertical|end"
+                    android:layout_weight="0.04" />
+
+                <TextView
+                    android:text=""
+                    android:layout_width="85dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/resultTxtView"
+                    android:textSize="30sp"
+                    android:textAlignment="gravity"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/results_text_view"
+                    android:layout_weight="0.90"
+                    android:textColor="@color/colorResutsTextViewFontColor"
+                    android:gravity="start" />
+
+                <Button
+                    android:text="clear"
+                    android:layout_width="59dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/clear3Btn"
+                    android:layout_gravity="start"
+                    android:background="@drawable/action_buttons"
+                    android:textColor="@color/colorActionButtonsText"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="5dp" />
+            </LinearLayout>
             <Button
-                android:text="clear"
-                android:layout_width="59dp"
-                android:layout_height="match_parent"
-                android:id="@+id/clear1Btn"
-                android:layout_gravity="start"
-                android:background="@drawable/action_buttons"
-                android:textColor="@color/colorActionButtonsText"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="5dp" />
-        </LinearLayout>
+                android:text="main menu"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:id="@+id/mainMenuBtn"
+                android:textSize="24sp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/jaycad_menu_button"
+                android:textColor="#FFCC00"
+                android:layout_marginTop="15dp" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="25dp">
-
-
-            <Button
-                android:text="add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/addBtn"
-                android:layout_weight="1"
-                android:layout_gravity="start"
-                android:background="@drawable/action_buttons"
-                android:textColor="@color/colorActionButtonsText"
-                android:layout_marginRight="0dp"
-                android:layout_marginLeft="80dp" />
-
-            <Button
-                android:text="subtract"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/subtractBtn"
-                android:layout_weight="1"
-                android:layout_gravity="end"
-                android:background="@drawable/action_buttons"
-                android:textColor="@color/colorActionButtonsText"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="30dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp">
-
-            <TextView
-                android:text="DEGREES"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView6"
-                android:textSize="12sp"
-                android:layout_marginLeft="65dp"
-                android:layout_marginRight="8dp"
-                android:layout_weight="0.03" />
-
-            <TextView
-                android:text="MINUTES"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView7"
-                android:textSize="12sp"
-                android:layout_marginLeft="9dp"
-                android:layout_weight="0.07" />
-
-            <TextView
-                android:text="SECONDS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView8"
-                android:layout_weight="0.58"
-                android:textSize="12sp"
-                android:layout_marginLeft="5dp" />
 
         </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:weightSum="1">
-
-            <TextView
-                android:text="Angle"
-                android:layout_width="76dp"
-                android:layout_height="match_parent"
-                android:id="@+id/textView9"
-                android:textSize="25sp"
-                android:textAlignment="viewEnd"
-                android:layout_gravity="end"
-                android:layout_marginRight="5dp" />
-
-            <EditText
-                android:layout_width="54dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/degrees2Txt"
-                android:background="@drawable/edit_text_border"
-                android:textColor="@color/colorEditText"
-                android:layout_marginRight="15dp" />
-
-            <EditText
-                android:layout_width="52dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/minutes2Txt"
-                android:background="@drawable/edit_text_border"
-                android:textColor="@color/colorEditText"
-                android:layout_marginRight="15dp"
-                android:layout_weight="0.13" />
-
-            <EditText
-                android:layout_width="52dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/seconds2Txt"
-                android:background="@drawable/edit_text_border"
-                android:textColor="@color/colorEditText"
-                android:layout_marginRight="5dp"
-                android:layout_weight="0.12" />
-
-            <Button
-                android:text="clear"
-                android:layout_width="59dp"
-                android:layout_height="match_parent"
-                android:id="@+id/clear2Btn"
-                android:layout_gravity="start"
-                android:background="@drawable/action_buttons"
-                android:textColor="@color/colorActionButtonsText"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="5dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="30dp"
-            android:weightSum="1">
-
-            <TextView
-                android:text="Result"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/textView10"
-                android:textSize="25sp"
-                android:layout_marginRight="5dp"
-                android:gravity="center_vertical|end"
-                android:layout_weight="0.04" />
-
-            <TextView
-                android:text=""
-                android:layout_width="85dp"
-                android:layout_height="match_parent"
-                android:id="@+id/resultTxtView"
-                android:textSize="30sp"
-                android:textAlignment="gravity"
-                android:layout_gravity="end"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/results_text_view"
-                android:layout_weight="0.90"
-                android:textColor="@color/colorResutsTextViewFontColor"
-                android:gravity="start" />
-
-            <Button
-                android:text="clear"
-                android:layout_width="59dp"
-                android:layout_height="match_parent"
-                android:id="@+id/clear3Btn"
-                android:layout_gravity="start"
-                android:background="@drawable/action_buttons"
-                android:textColor="@color/colorActionButtonsText"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="5dp" />
-        </LinearLayout>
-        <Button
-            android:text="main menu"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:id="@+id/mainMenuBtn"
-            android:textSize="24sp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/jaycad_menu_button"
-            android:textColor="#FFCC00"
-            android:layout_marginTop="15dp" />
-
-
-    </LinearLayout>
-
+    </ScrollView>
 </FrameLayout>

@@ -20,7 +20,7 @@ import com.applications.jay_letheby.jaycad.R;
 import com.applications.jay_letheby.jaycad.HelperClasses.InputFilterMinMax;
 import com.applications.jay_letheby.jaycad.HelperClasses.DataInputChecker;
 import com.applications.jay_letheby.jaycad.HelperClasses.Angle;
-
+import com.applications.jay_letheby.jaycad.HelperClasses.DecimalUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -107,11 +107,12 @@ public class AngleConversionFragment extends Fragment implements View.OnClickLis
         // Limit the number of digits to enter
         degreesTxt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(3)});
         degreesMinutesTxt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2)});
-        degreesSecondTxt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(4)});
+        degreesSecondTxt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2)});
 
         // Limit the number range to 0-59 for minutes and seconds fields
         degreesMinutesTxt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "59")});
-        degreesSecondTxt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "59")});
+        // TODO : fix rounding up to nearest second
+        //degreesSecondTxt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "59")});
 
         mainMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,6 +188,7 @@ public class AngleConversionFragment extends Fragment implements View.OnClickLis
                 degreesTxt.setText(conversionAngle.getDegrees() + "");
                 degreesMinutesTxt.setText(conversionAngle.getMinutes() + "");
                 degreesSecondTxt.setText(conversionAngle.getDecimalSeconds() + "");
+
             }
 
         } else {
