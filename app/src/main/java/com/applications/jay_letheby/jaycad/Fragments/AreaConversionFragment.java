@@ -427,6 +427,12 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
                     addToStack(roundResult(result, 3));
                     keepRunningTotal(result, 1);
                     break;
+                case 2:
+                    // Acres, roods, perches to Hectares
+                    result = converter.areaConverter(Converter.AreaConversionOperation.ACRES_TO_HECTARES, totalAcres(convertMeasure, roodMeasure, perchMeasure));
+                    addToStack(roundResult(result, 3));
+                    keepRunningTotal(result, 2);
+                    break;
                 default:
                     // error
                     // this should never get chosen but put error message here just in case
@@ -475,6 +481,47 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
         areaStackTxtView.append("\n" + result);
     }
 
+    public Double convertRoodToAcres(String roodMeasure) {
+        Double roodToAcre = 0.0;
+
+        try{
+            roodToAcre = Double.parseDouble(roodMeasure) * 0.249999998616;
+        }
+        catch (NumberFormatException e) {
+            // TODO : put error message here
+        }
+
+        return roodToAcre;
+    }
+
+    public Double convertPerchToAcre(String perchMeasure) {
+        Double perchToAcre = 0.0;
+
+        try {
+            perchToAcre = Double.parseDouble(perchMeasure) * 0.00625;
+        }
+        catch (NumberFormatException e) {
+            // TODO : put error message here
+        }
+
+        return perchToAcre;
+    }
+
+    public Double totalAcres (String acres, String roods, String perches) {
+        // Sums the Acres, roods and perches and converts all to Total Acres
+        Double totalAcres = 0.0;
+        Double acresMeasure = 0.0;
+
+        try {
+            acresMeasure = Double.parseDouble(acres);
+
+            totalAcres = acresMeasure + convertRoodToAcres(roods) + convertPerchToAcre(perches);
+        }
+        catch (NumberFormatException e) {
+            // TODO : put error message here
+        }
+        return totalAcres;
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
