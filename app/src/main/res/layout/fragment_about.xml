@@ -4,35 +4,194 @@
     android:layout_height="match_parent"
     tools:context="com.applications.jay_letheby.jaycad.Fragments.AboutFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-
-        <TextView
-            android:text="About JAYCAD"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView"
-            tools:text="About JAYCAD"
-            android:textAlignment="center"
-            android:textSize="35sp"
-            android:textColor="#FFF"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:text="main menu"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:id="@+id/mainMenuBtn"
-            android:textSize="24sp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/jaycad_menu_button"
-            android:textColor="#FFCC00"
-            android:layout_marginTop="15dp" />
 
-    </LinearLayout>
+            <TextView
+                android:text="About JAYCAD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView"
+                tools:text="About JAYCAD"
+                android:textAlignment="center"
+                android:textSize="35sp"
+                android:textColor="#FFF"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
 
+            <TextView
+                android:text="@string/about_jaycad_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView1"
+                tools:text="Length Conversion"
+                android:textAlignment="textStart"
+                android:gravity="start"
+                android:textSize="18sp"
+                android:textColor="#ffffcc"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp" />
+
+            <TextView
+                android:text="Length Conversion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                tools:text="Length Conversion"
+                android:textAlignment="textStart"
+                android:gravity="start"
+                android:textSize="23sp"
+                android:textColor="#ffff80"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:text="@string/length_conversion_about_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3"
+                tools:text="Length Conversion"
+                android:textAlignment="textStart"
+                android:gravity="start"
+                android:textSize="15sp"
+                android:textColor="#ffffcc"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp" />
+
+            <TextView
+                android:text="Area Conversion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView4"
+                tools:text="Area Conversion"
+                android:textAlignment="textStart"
+                android:gravity="start"
+                android:textSize="23sp"
+                android:textColor="#ffff80"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:text="@string/area_conversion_about_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView5"
+                tools:text="Area Conversion"
+                android:textAlignment="textStart"
+                android:gravity="start"
+                android:textSize="15sp"
+                android:textColor="#ffffcc"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp" />
+
+            <TextView
+                android:text="Angle Conversion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView6"
+                tools:text="Angle Conversion"
+                android:textAlignment="textStart"
+                android:gravity="start"
+                android:textSize="23sp"
+                android:textColor="#ffff80"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:text="@string/angle_conversion_about_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView7"
+                tools:text="Angle Conversion"
+                android:textAlignment="textStart"
+                android:gravity="start"
+                android:textSize="15sp"
+                android:textColor="#ffffcc"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp" />
+
+            <TextView
+                android:text="Angle Add/Subtract"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView8"
+                tools:text="Angle Add/Subtract"
+                android:textAlignment="textStart"
+                android:gravity="start"
+                android:textSize="23sp"
+                android:textColor="#ffff80"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:text="@string/angle_add_subtract_about_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView9"
+                tools:text="Angle Conversion"
+                android:textAlignment="textStart"
+                android:gravity="start"
+                android:textSize="15sp"
+                android:textColor="#ffffcc"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp" />
+
+            <TextView
+                android:text="@string/jaycorp_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView10"
+                tools:text="Angle Conversion"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="#ffffcc"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp" />
+
+            <Button
+                android:text="main menu"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:id="@+id/mainMenuBtn"
+                android:textSize="24sp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/jaycad_menu_button"
+                android:textColor="#FFCC00"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp" />
+
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>
