@@ -433,6 +433,13 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
                     addToStack(roundResult(result, 3));
                     keepRunningTotal(result, 2);
                     break;
+                case 3:
+                    // Hectare to Acres, roods and perches
+                    result = converter.areaConverter(Converter.AreaConversionOperation.HECTARES_TO_ACRES, Double.parseDouble(convertMeasure));
+                    keepRunningTotal(result, 3);
+                    result = (convertDecimalAcres(result)).toString();
+                    addToStack(result);
+                    break;
                 default:
                     // error
                     // this should never get chosen but put error message here just in case
@@ -440,7 +447,11 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
                     break;
             }
 
-            converToTxtView.setText(roundResult(result, 3));
+            // Display result
+            if (convertAction == 3)
+                converToTxtView.setText(result);
+            else
+                converToTxtView.setText(roundResult(result, 3));
         }
 
     }
@@ -466,8 +477,15 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
         try {
             runningTotal += Double.parseDouble(result);
 
-            roundedNumber = roundResult(runningTotal + "", 3);
-            runningTotalTxtView.setText(roundedNumber);
+            if (convertAction == 3) {
+                // Hectares to Acres, roods and feet
+
+                runningTotalTxtView.setText(convertDecimalAcres(runningTotal + ""));
+
+            } else {
+                roundedNumber = roundResult(runningTotal + "", 3);
+                runningTotalTxtView.setText(roundedNumber);
+            }
 
         }
         catch (NumberFormatException e) {
@@ -521,6 +539,55 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
             // TODO : put error message here
         }
         return totalAcres;
+    }
+
+    public String convertDecimalAcres(String theResult) {
+        // Converts Decimal Acres to Acres Roods & Perches
+        double fractionalPart = 0.0;
+        double integralPart = 0.0;
+        int acresPart = 0;
+        int roodPart = 0;
+        double perchesPart = 0;
+        Double calc = 0.0;
+        String formattedAcresMeasure = "";
+
+        try {
+            fractionalPart = Double.parseDouble(theResult) % 1;
+            integralPart = Double.parseDouble(theResult) - fractionalPart;
+            acresPart = (int) integralPart;
+
+            // Get roods
+            calc = fractionalPart / (0.25);
+
+            fractionalPart = calc % 1;
+            integralPart = calc - fractionalPart;
+            roodPart = (int)integralPart;
+
+            // Get perches in decimal format
+            calc = fractionalPart / 0.025;
+
+            perchesPart = calc;
+
+        }
+        catch (NumberFormatException e) {
+            // TODO : put error message here
+
+        }
+
+        if (acresPart == 0)
+            formattedAcresMeasure = "0A ";
+        else
+            formattedAcresMeasure = acresPart + "A ";
+
+        if (roodPart == 0)
+            formattedAcresMeasure += " 0R ";
+        else
+            formattedAcresMeasure += roodPart + "R ";
+
+        if (perchesPart > 0)
+            formattedAcresMeasure +=  roundResult(perchesPart + "", 1) + "P";
+
+        return formattedAcresMeasure;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
