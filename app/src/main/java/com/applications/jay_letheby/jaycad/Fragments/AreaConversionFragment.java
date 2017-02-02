@@ -199,7 +199,7 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
 
         if (chosenBtn == convertBtn){
             // convert units
-            //convertMeasurement();
+            convertMeasurement();
         } else if (chosenBtn == clearConvertFromBtn) {
             convertFromTxt.setText("");
             roodTxt.setText("");
@@ -262,6 +262,11 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
         }
     }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
     public void hideRoodPerchFields (){
         // Hide Rood and Perches fields and field lables
         roodTxtView.setVisibility(View.INVISIBLE);
@@ -317,10 +322,159 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
 
         runningTotal = 0.0;
     }
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    public boolean isDataInputOK (int convertAction) {
+        // Checks for no data entered and non-numerical data
+
+        // String Array for checking for no data entered
+        String [] conversionDataInput = {convertFromTxt.getText().toString(), roodTxt.getText().toString(), perchTxt.getText().toString()};
+
+        // Check that data has been entered
+        if (dataInputChecker.allInputFieldsEmpty(conversionDataInput)){
+            // show alert dialog if all fields are empty
+            noDataEntered();
+            return false;
+        }
+
+        // Check that data is Numerical
+
+        String [] conversionDataDoubleInput = {convertFromTxt.getText().toString()};
+
+        // Check for integer data when converting Acres, roods & perches to Hectares otherwise checking for double type input
+        if (convertAction == 2) {
+            // Check for integer data when converting feet to metres
+            if (dataInputChecker.isNotNumericData(conversionDataInput, "Integer")) {
+                nonNumericalDataEntered();
+                return false;
+            }
+        } else {
+            // Check for double type data
+            if (dataInputChecker.isNotNumericData(conversionDataDoubleInput, "Double")) {
+                nonNumericalDataEntered();
+                return false;
+            }
+        }
+
+        // there is data and is numerical
+        return true;
+    }
+
+    public void noDataEntered (){
+
+        // Alert message for no data entered
+        AlertDialog.Builder a_builder = new AlertDialog.Builder(getActivity());
+        a_builder.setMessage(R.string.dialog_no_data_conversion_message)
+                .setTitle(R.string.dialog_no_data_conversion_title)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // User clicked OK button
+                    }
+                });
+        AlertDialog alert = a_builder.create();
+        alert.show();
+    }
+
+    public void nonNumericalDataEntered (){
+
+        // Alert message for no data entered
+        AlertDialog.Builder a_builder = new AlertDialog.Builder(getActivity());
+        a_builder.setMessage(R.string.dialog_non_numerical_data_message)
+                .setTitle(R.string.dialog_non_numerical_data_title)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // User clicked OK button
+                    }
+                });
+        AlertDialog alert = a_builder.create();
+        alert.show();
+    }
+
+    public void convertMeasurement() {
+        // perform conversion according to action chosen from dropdown
+        int convertAction = areaConversionSpinner.getSelectedItemPosition();
+        // Will hold result of conversion
+        String result = "";
+        String convertMeasure = "";
+        String roodMeasure = "";
+        String perchMeasure = "";
+
+        // Check data input
+        if (isDataInputOK(convertAction)){
+            // Get Input data
+            convertMeasure = convertFromTxt.getText().toString();
+            roodMeasure = roodTxt.getText().toString();
+            perchMeasure = perchTxt.getText().toString();
+
+            // Convert no input to zeros
+            convertMeasure = (convertMeasure.length() > 0) ? convertMeasure : "0";
+            roodMeasure = (roodMeasure.length() > 0) ? roodMeasure : "0";
+            perchMeasure = (perchMeasure.length() > 0) ? perchMeasure : "0";
+
+            switch (convertAction) {
+                case 0:
+                    // Acres to Hectares
+                    result = converter.areaConverter(Converter.AreaConversionOperation.ACRES_TO_HECTARES, Double.parseDouble(convertMeasure));
+                    addToStack(roundResult(result, 3));
+                    keepRunningTotal(result, 0);
+                    break;
+                case 1:
+                    // Hectares to Acres
+                    result = converter.areaConverter(Converter.AreaConversionOperation.HECTARES_TO_ACRES, Double.parseDouble(convertMeasure));
+                    addToStack(roundResult(result, 3));
+                    keepRunningTotal(result, 1);
+                    break;
+                default:
+                    // error
+                    // this should never get chosen but put error message here just in case
+                    // display error message
+                    break;
+            }
+
+            converToTxtView.setText(roundResult(result, 3));
+        }
 
     }
+
+    public String roundResult (String result, int roundTo) {
+        // Round the result to set number of figures
+        Double roundedNumber = 0.0;
+        try {
+            roundedNumber = Double.parseDouble(result);
+            roundedNumber = DecimalUtils.round(roundedNumber, roundTo);
+        }
+        catch (NumberFormatException e){
+            // TODO : put error message here
+
+        }
+        return roundedNumber + "";
+    }
+
+    public void keepRunningTotal (String result, int convertAction) {
+
+        String roundedNumber = "";
+
+        try {
+            runningTotal += Double.parseDouble(result);
+
+            roundedNumber = roundResult(runningTotal + "", 3);
+            runningTotalTxtView.setText(roundedNumber);
+
+        }
+        catch (NumberFormatException e) {
+            // TODO : put error message here
+        }
+    }
+
+    public void addToStack (String result) {
+        // Add converted measurement to stack
+
+        areaStackTxtView.append("\n" + result);
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

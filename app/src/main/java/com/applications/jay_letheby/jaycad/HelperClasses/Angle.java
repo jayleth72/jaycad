@@ -79,14 +79,16 @@ public class Angle {
             else
                 setMinutes(0);
 
-            if(sec.length() > 0)
-               setSeconds(Integer.parseInt(sec));
-            else
+            if(sec.length() > 0) {
+                setSeconds(Integer.parseInt(sec));
+                //setDecimalSeconds(Double.parseDouble(sec));
+            } else
                 setSeconds(0);
 
             convertDegMinSecToDecimal();
         }
         catch (NumberFormatException e) {
+            // TODO : error message here
             return;
         }
     }
@@ -127,8 +129,8 @@ public class Angle {
             this.minutes = (int)calcMinutesValue;
 
             // Calculate seconds
-            double seconds = ((calcMinutesValue - (double)minutes)) * 60;
-            BigDecimal roundSeconds = new BigDecimal(seconds).setScale(2, BigDecimal.ROUND_HALF_UP);
+            double theSeconds = ((calcMinutesValue - (double)minutes) * 60);
+            BigDecimal roundSeconds = new BigDecimal(theSeconds).setScale(2, BigDecimal.ROUND_HALF_UP);
             this.decimalSeconds = roundSeconds.doubleValue();
             // round to nearest whole number
             this.seconds = (int) Math.round(decimalSeconds);

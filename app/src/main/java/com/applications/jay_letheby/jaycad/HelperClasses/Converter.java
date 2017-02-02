@@ -25,24 +25,17 @@ public class Converter {
 
         switch (operation) {
             case FEET_TO_METRES:
-
                 convertedMeasurement = measurementToConvert * 0.3048;
-
                 break;
             case METRES_TO_FEET:
-
                 convertedMeasurement = measurementToConvert * 3.28084;
-
                 break;
             case LINKS_TO_METRES:
                 convertedMeasurement = measurementToConvert * 0.201168;
-
                 break;
             case METRES_TO_LINKS:
                 convertedMeasurement = measurementToConvert * 4.9709595959;
-
                 break;
-
         }
         // return result to 3 decimal places
         //convertedMeasurement = DecimalUtils.round(convertedMeasurement, 3);
@@ -50,17 +43,20 @@ public class Converter {
         return formattedResult;
     }
 
-    public Double areaConverter (AreaConversionOperation operation, Double measurementToConvert){
+
+    public String areaConverter (AreaConversionOperation operation, Double measurementToConvert){
         // Area conversions
         Double convertedMeasurement = 0.0;
 
         switch (operation) {
             case HECTARES_TO_ACRES:
+                convertedMeasurement = measurementToConvert * 2.4710538146717;
                 break;
             case ACRES_TO_HECTARES:
+                convertedMeasurement = measurementToConvert * 0.404686;
                 break;
         }
-        return convertedMeasurement;
+        return convertedMeasurement.toString();
     }
 
 }
