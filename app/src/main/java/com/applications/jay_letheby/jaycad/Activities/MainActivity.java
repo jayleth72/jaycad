@@ -13,6 +13,7 @@ import android.util.Log;
 import com.applications.jay_letheby.jaycad.Fragments.AboutFragment;
 import com.applications.jay_letheby.jaycad.Fragments.AngleAddSubtractFragment;
 import com.applications.jay_letheby.jaycad.Fragments.AngleConversionFragment;
+import com.applications.jay_letheby.jaycad.Fragments.AngleConversionMenu;
 import com.applications.jay_letheby.jaycad.Fragments.AreaConversionFragment;
 import com.applications.jay_letheby.jaycad.Fragments.BakeryFinderFragment;
 import com.applications.jay_letheby.jaycad.Fragments.ConversionsMenuFragment;
@@ -23,7 +24,8 @@ import com.applications.jay_letheby.jaycad.R;
 public class MainActivity extends AppCompatActivity implements MainFragment.MainFragmentInteractionListener, ConversionsMenuFragment.ConversionsMenuInteractionListener,
         AngleConversionFragment.AngleConversionInteractionListener, AngleAddSubtractFragment.AngleAddSubtractFragmentInteractionListener,
         BakeryFinderFragment.BakeryFinderFragmentInteractionListener, AboutFragment.AboutFragmentInteractionListener,
-        LengthConversionFragment.LengthConversionFragmentInteractionListener, AreaConversionFragment.AreaConversionFragmentInteractionListener
+        LengthConversionFragment.LengthConversionFragmentInteractionListener, AreaConversionFragment.AreaConversionFragmentInteractionListener,
+        AngleConversionMenu.AngleConversionMenuInteractionListener
 {
 
     @Override
@@ -137,5 +139,10 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Main
     @Override
     public void onAreaConversionFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void onAngleConversionMenuInteraction(Uri uri) {
+        
     }
 }
