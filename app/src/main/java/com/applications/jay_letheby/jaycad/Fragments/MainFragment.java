@@ -80,14 +80,14 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         conversionBtn = (Button)view.findViewById(R.id.conversionsBtn);
         angleConversionBtn = (Button)view.findViewById(R.id.angleConversionBtn);
         angleAddSubBtn = (Button)view.findViewById(R.id.angleAddSubBtn);
-        bakeryFinderBtn = (Button)view.findViewById(R.id.bakeryFinderBtn);
+        //bakeryFinderBtn = (Button)view.findViewById(R.id.bakeryFinderBtn);
         aboutBtn = (Button)view.findViewById(R.id.aboutBtn);
 
         //Set Button Listeners
         conversionBtn.setOnClickListener(this);
         angleConversionBtn.setOnClickListener(this);
         angleAddSubBtn.setOnClickListener(this);
-        bakeryFinderBtn.setOnClickListener(this);
+        // bakeryFinderBtn.setOnClickListener(this);
         aboutBtn.setOnClickListener(this);
 
         // Inflate the layout for this fragment

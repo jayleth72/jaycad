@@ -1,15 +1,22 @@
 package com.applications.jay_letheby.jaycad.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.applications.jay_letheby.jaycad.Activities.MainActivity;
+import com.applications.jay_letheby.jaycad.HelperClasses.Angle;
+import com.applications.jay_letheby.jaycad.HelperClasses.DataInputChecker;
+import com.applications.jay_letheby.jaycad.HelperClasses.InputFilterMinMax;
 import com.applications.jay_letheby.jaycad.R;
 
 /**
@@ -31,6 +38,18 @@ public class DecimalAngleConversionFragment extends Fragment implements View.OnC
     private String mParam2;
 
     private Button mainMenuBtn;
+    private Button convertBtn;
+    private Button clearBtn;
+
+    private EditText degreesTxt;
+    private EditText minutesTxt;
+    private EditText secondsTxt;
+
+    private TextView decimalDegTxtView;
+
+    private Angle conversionAngle;
+    private DataInputChecker dataInputChecker;
+    private InputFilterMinMax inputFilterMinMax;
 
     private DecimalAngleConversionFragmentInteractionListener mListener;
 
@@ -71,8 +90,20 @@ public class DecimalAngleConversionFragment extends Fragment implements View.OnC
 
         View view = inflater.inflate(R.layout.fragment_decimal_angle_conversion, container, false);
 
+        // initlise buttons
         mainMenuBtn = (Button)view.findViewById(R.id.mainMenuBtn);
+        clearBtn = (Button)view.findViewById(R.id.clearBtn);
+        convertBtn = (Button)view.findViewById(R.id.convertBtn);
 
+        // initalise EditText boxes
+        degreesTxt = (EditText)view.findViewById(R.id.degreeTxt);
+        minutesTxt= (EditText)view.findViewById(R.id.degreesMinTxt);
+        secondsTxt = (EditText)view.findViewById(R.id.degreesSecondsTxt);
+
+        // initialise TextView results
+        decimalDegTxtView = (TextView)view.findViewById(R.id.decimalAngleResultTxtView);
+
+        // Set Button listeners
         mainMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,6 +113,10 @@ public class DecimalAngleConversionFragment extends Fragment implements View.OnC
             }
         });
 
+        clearBtn.setOnClickListener(this);
+        convertBtn.setOnClickListener(this);
+
+        dataInputChecker = new DataInputChecker();
 
         // Inflate the layout for this fragment
         return view;
@@ -90,6 +125,95 @@ public class DecimalAngleConversionFragment extends Fragment implements View.OnC
     @Override
     public void onClick(View view) {
 
+        Button chosenBtn = (Button)view;
+
+        // Load Fragment according to which button is pressed
+        if (chosenBtn == convertBtn){
+            convertAngle();
+        } else if (clearBtn == clearBtn){
+            clearTextFields();
+        }
+
+    }
+
+    public void convertAngle() {
+        // Convert Angle to decimal angle
+        decimalDegTxtView.setText("");
+
+        String degrees = degreesTxt.getText().toString().trim();
+        String minutes = minutesTxt.getText().toString().trim();
+        String seconds = secondsTxt.getText().toString().trim();
+
+        String []degMin = {degrees, minutes};
+        String []secondsArray = {seconds};
+
+        // Check for degrees minutes and seconds input
+        if (degrees.length() > 0 | minutes.length() > 0 | seconds.length() > 0) {
+            // Convert to decimal
+
+            //Check for non-numerical data
+            if (dataInputChecker.isNotNumericData(degMin, "Integer") | dataInputChecker.isNotNumericData(secondsArray, "Double")){
+                // SHow error message because non-numeric data entered
+                nonNumericalDataEntered();
+            } else {
+                // Data is numerical, Convert to decimal
+                // Assign zero to empty fields
+                degrees = (degrees.length() > 0) ? degrees : "0";
+                minutes = (minutes.length() > 0) ? minutes : "0";
+                seconds = (seconds.length() > 0) ? seconds : "0";
+
+                conversionAngle = new Angle();
+                conversionAngle.setAllValues(degrees, minutes, seconds);
+                decimalDegTxtView.setText(conversionAngle.getDecimalAngle() + "");
+            }
+
+        } else {
+            // Show no data entered message
+            noDataEntered();
+        }
+    }
+
+    public void clearTextFields (){
+        // CLear all fields
+        degreesTxt.setText("");
+        secondsTxt.setText("");
+        minutesTxt.setText("");
+
+        decimalDegTxtView.setText("");
+    }
+
+    public void noDataEntered (){
+
+        // Alert message for no data entered
+        AlertDialog.Builder a_builder = new AlertDialog.Builder(getActivity());
+        a_builder.setMessage(R.string.dialog_no_data_message_angle_conversion)
+                .setTitle(R.string.dialog_no_data_title_angle_conversion)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // User clicked OK button
+                    }
+                });
+        AlertDialog alert = a_builder.create();
+        alert.show();
+    }
+
+    public void nonNumericalDataEntered (){
+
+        // Alert message for no data entered
+        AlertDialog.Builder a_builder = new AlertDialog.Builder(getActivity());
+        a_builder.setMessage(R.string.dialog_non_numerical_data_message)
+                .setTitle(R.string.dialog_non_numerical_data_title)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // User clicked OK button
+                    }
+                });
+        AlertDialog alert = a_builder.create();
+        alert.show();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
