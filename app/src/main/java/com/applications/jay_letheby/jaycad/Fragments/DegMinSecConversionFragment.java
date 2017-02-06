@@ -1,15 +1,21 @@
 package com.applications.jay_letheby.jaycad.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
+import android.widget.EditText;
+import android.widget.TextView;
 import com.applications.jay_letheby.jaycad.Activities.MainActivity;
+import com.applications.jay_letheby.jaycad.HelperClasses.Angle;
+import com.applications.jay_letheby.jaycad.HelperClasses.DataInputChecker;
+import com.applications.jay_letheby.jaycad.HelperClasses.InputFilterMinMax;
 import com.applications.jay_letheby.jaycad.R;
 
 /**
@@ -31,6 +37,18 @@ public class DegMinSecConversionFragment extends Fragment implements View.OnClic
     private String mParam2;
 
     private Button mainMenuBtn;
+    private Button convertBtn;
+    private Button clearBtn;
+
+    private EditText decimalDegreesTxt;
+
+    private TextView degreesTxtView;
+    private TextView  minutesTxtView;
+    private TextView  secondsTxtView;
+
+    private Angle conversionAngle;
+    private DataInputChecker dataInputChecker;
+    private InputFilterMinMax inputFilterMinMax;
 
     private DegMinSecConversionFragmentInteractionListener mListener;
 
@@ -71,7 +89,19 @@ public class DegMinSecConversionFragment extends Fragment implements View.OnClic
 
         View view = inflater.inflate(R.layout.fragment_deg_min_sec_conversion, container, false);
 
+
+        // initlise buttons
         mainMenuBtn = (Button)view.findViewById(R.id.mainMenuBtn);
+        clearBtn = (Button)view.findViewById(R.id.clearBtn);
+        convertBtn = (Button)view.findViewById(R.id.convertBtn);
+
+        // initialise EditText fields
+        decimalDegreesTxt = (EditText) view.findViewById(R.id.decimalDegreesTxt);
+
+        // initalise TextView boxes
+        degreesTxtView = (TextView) view.findViewById(R.id.degreeTxtView);
+        minutesTxtView= (TextView) view.findViewById(R.id.degreesMinTxtView);
+        secondsTxtView = (TextView) view.findViewById(R.id.degreesSecondsTxtView);
 
         mainMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +112,11 @@ public class DegMinSecConversionFragment extends Fragment implements View.OnClic
             }
         });
 
+        clearBtn.setOnClickListener(this);
+        convertBtn.setOnClickListener(this);
+
+        dataInputChecker = new DataInputChecker();
+
         // Inflate the layout for this fragment
         return view;
     }
@@ -89,6 +124,84 @@ public class DegMinSecConversionFragment extends Fragment implements View.OnClic
     @Override
     public void onClick(View view) {
 
+        Button chosenBtn = (Button)view;
+
+        // Load Fragment according to which button is pressed
+        if (chosenBtn == convertBtn){
+            convertAngle();
+        } else if (clearBtn == clearBtn){
+            clearTextFields();
+        }
+
+    }
+
+    public void convertAngle () {
+
+        String decimalDegrees = decimalDegreesTxt.getText().toString().trim();
+
+        String []decimalArray = {decimalDegrees};
+
+       if (decimalDegrees.length() > 0) {
+            //Check for non-numerical data
+            if (dataInputChecker.isNotNumericData(decimalArray, "Double")) {
+                // SHow error message because non-numeric data entered
+                nonNumericalDataEntered();
+            } else {
+                // Data is numerical, Convert to degrees, minutes seconds
+                conversionAngle = new Angle();
+                conversionAngle.setDecimalAngle(Double.parseDouble(decimalDegrees));
+                degreesTxtView.setText(conversionAngle.getDegrees() + "");
+                minutesTxtView.setText(conversionAngle.getMinutes() + "");
+                secondsTxtView.setText(conversionAngle.getDecimalSeconds() + "");
+
+            }
+       } else {
+           // Show no data entered message
+           noDataEntered();
+       }
+    }
+
+    public void clearTextFields (){
+        // CLear all fields
+        degreesTxtView.setText("");
+        secondsTxtView.setText("");
+        minutesTxtView.setText("");
+
+        decimalDegreesTxt.setText("");
+    }
+
+    public void noDataEntered (){
+
+        // Alert message for no data entered
+        AlertDialog.Builder a_builder = new AlertDialog.Builder(getActivity());
+        a_builder.setMessage(R.string.dialog_no_data_message_angle_conversion_decimal)
+                .setTitle(R.string.dialog_no_data_title_angle_conversion_decimal)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // User clicked OK button
+                    }
+                });
+        AlertDialog alert = a_builder.create();
+        alert.show();
+    }
+
+    public void nonNumericalDataEntered (){
+
+        // Alert message for no data entered
+        AlertDialog.Builder a_builder = new AlertDialog.Builder(getActivity());
+        a_builder.setMessage(R.string.dialog_non_numerical_data_message)
+                .setTitle(R.string.dialog_non_numerical_data_title)
+                .setCancelable(false)
+                .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // User clicked OK button
+                    }
+                });
+        AlertDialog alert = a_builder.create();
+        alert.show();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

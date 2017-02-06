@@ -96,24 +96,11 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <!--<EditText
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/degreeTxt"
-                    android:text=""
-                    android:background="@drawable/edit_text_border"
-                    android:textColor="@color/colorEditText"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="15dp" />-->
-
                 <TextView
                     android:text=""
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/degreeTxt"
+                    android:id="@+id/degreeTxtView"
                     android:textSize="17sp"
                     android:textAlignment="gravity"
                     android:layout_gravity="end"
@@ -124,23 +111,11 @@
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1" />
 
-                <!--<EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/degreesMinTxt"
-                    android:text=""
-                    android:background="@drawable/edit_text_border"
-                    android:layout_marginRight="30dp"
-                    android:textColor="@color/colorEditText" />-->
-
                 <TextView
                     android:text=""
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/degreesMinTxt"
+                    android:id="@+id/degreesMinTxtView"
                     android:textSize="17sp"
                     android:textAlignment="gravity"
                     android:layout_gravity="end"
@@ -151,23 +126,11 @@
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1" />
 
-                <!--<EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/degreesSecondsTxt"
-                    android:layout_weight="1"
-                    android:text=""
-                    android:background="@drawable/edit_text_border"
-                    android:layout_marginRight="15dp"
-                    android:textColor="@color/colorEditText" />-->
-
                 <TextView
                     android:text=""
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/degreesSecondsTxt"
+                    android:id="@+id/degreesSecondsTxtView"
                     android:textSize="17sp"
                     android:textAlignment="gravity"
                     android:layout_gravity="end"

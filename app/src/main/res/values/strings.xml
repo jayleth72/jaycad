@@ -2,7 +2,9 @@
     <string name="app_name">JayCad</string>
     <string name="dialog_ok">Ok</string>
     <string name="dialog_no_data_title_angle_conversion">All fields are empty</string>
-    <string name="dialog_no_data_message_angle_conversion">Please enter a value in Degrees, Minutes. Seconds or Decimal Degrees Fields</string>
+    <string name="dialog_no_data_title_angle_conversion_decimal">No data entered</string>
+    <string name="dialog_no_data_message_angle_conversion">Please enter a value in Degrees, Minutes or Seconds Fields</string>
+    <string name="dialog_no_data_message_angle_conversion_decimal">Please enter a value in the Decimal Degrees Field</string>
     <string name="dialog_non_numerical_data_title">Data Entry Error</string>
     <string name="dialog_non_numerical_data_message">Please enter number characters only</string>
     <string name="dialog_no_data_angle_add_subtract_message">Please enter angle data in degrees, minutes or seconds fields</string>
@@ -43,4 +45,7 @@
     <string name="angle_add_subtract_about_string">1. Add 2 angles with degrees, minute and second data to each other.\n\n
         2. Subtract 2 angles with degrees, minute and second data to each others.\n\n</string>
     <string name="jaycorp_string">&#169; 2017 JayLeth Technologies</string>
-  </resources>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

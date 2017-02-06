@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.applications.jay_letheby.jaycad.Fragments.MainFragment"
-    android:background="@drawable/jaycad_bg_gradient2">
+    tools:context="com.applications.jay_letheby.jaycad.Fragments.AngleConversionMenuFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,22 +15,22 @@
 
 
             <TextView
-                android:text="Main Menu"
+                android:text="Angle Conversion Menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView"
-                tools:text="MAIN MENU"
+                tools:text="Angle Conversions Menu"
                 android:textAlignment="center"
-                android:textSize="35sp"
+                android:textSize="28sp"
                 android:textColor="#FFF"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp" />
 
             <Button
-                android:text="Conversions"
+                android:text="decimal conversion"
                 android:layout_width="300dp"
                 android:layout_height="60dp"
-                android:id="@+id/conversionsBtn"
+                android:id="@+id/decimalConversionsBtn"
                 android:textSize="24sp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/jaycad_menu_button"
@@ -40,10 +39,10 @@
 
 
             <Button
-                android:text="Angle conversions"
+                android:text="Deg/Min/Sec conversion"
                 android:layout_width="300dp"
                 android:layout_height="60dp"
-                android:id="@+id/angleConversionBtn"
+                android:id="@+id/degMinSecConversionBtn"
                 android:textSize="24sp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/jaycad_menu_button"
@@ -51,32 +50,10 @@
                 android:layout_marginTop="15dp" />
 
             <Button
-                android:text="Angle add/subtract"
+                android:text="main menu"
                 android:layout_width="300dp"
                 android:layout_height="60dp"
-                android:id="@+id/angleAddSubBtn"
-                android:textSize="24sp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/jaycad_menu_button"
-                android:textColor="#FFCC00"
-                android:layout_marginTop="15dp" />
-
-            <!--<Button
-                android:text="Bakery Finder"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:id="@+id/bakeryFinderBtn"
-                android:textSize="24sp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/jaycad_menu_button"
-                android:textColor="#FFCC00"
-                android:layout_marginTop="15dp" />-->
-
-            <Button
-                android:text="About"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:id="@+id/aboutBtn"
+                android:id="@+id/mainMenuBtn"
                 android:textSize="24sp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/jaycad_menu_button"
@@ -86,4 +63,5 @@
 
         </LinearLayout>
     </ScrollView>
+
 </FrameLayout>
