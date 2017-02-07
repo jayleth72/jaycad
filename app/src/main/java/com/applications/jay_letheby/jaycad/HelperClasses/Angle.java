@@ -1,6 +1,8 @@
 package com.applications.jay_letheby.jaycad.HelperClasses;
 
 import java.math.BigDecimal;
+import com.applications.jay_letheby.jaycad.HelperClasses.DecimalUtils;
+import android.util.Log;
 
 /**
  * Created by jay_the_superwarrior on 22/01/2017.
@@ -80,8 +82,8 @@ public class Angle {
                 setMinutes(0);
 
             if(sec.length() > 0) {
-                setSeconds(Integer.parseInt(sec));
-                //setDecimalSeconds(Double.parseDouble(sec));
+                //setSeconds(Integer.parseInt(sec));
+                setDecimalSeconds(Double.parseDouble(sec));
             } else
                 setSeconds(0);
 
@@ -89,6 +91,7 @@ public class Angle {
         }
         catch (NumberFormatException e) {
             // TODO : error message here
+            Log.v("fuck","shit");
             return;
         }
     }
@@ -115,7 +118,7 @@ public class Angle {
         // Converts Deg Min Second to decimal degrees
 
         decimalAngle = this.degrees + ((double)this.minutes/60) + ((double)this.seconds/3600);
-
+        decimalAngle  = DecimalUtils.round(decimalAngle, 5);
     }
 
     private void convertDecimalToDegMinSec() {
