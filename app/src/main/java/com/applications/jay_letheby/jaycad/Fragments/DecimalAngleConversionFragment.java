@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import com.applications.jay_letheby.jaycad.Activities.MainActivity;
 import com.applications.jay_letheby.jaycad.HelperClasses.Angle;
 import com.applications.jay_letheby.jaycad.HelperClasses.DataInputChecker;
 import com.applications.jay_letheby.jaycad.HelperClasses.InputFilterMinMax;
+import com.applications.jay_letheby.jaycad.HelperClasses.CustomTextWatcher;
+import com.applications.jay_letheby.jaycad.HelperClasses.DoubleRangeInputFilter;
 import com.applications.jay_letheby.jaycad.R;
 
 /**
@@ -117,6 +120,18 @@ public class DecimalAngleConversionFragment extends Fragment implements View.OnC
         convertBtn.setOnClickListener(this);
 
         dataInputChecker = new DataInputChecker();
+
+        // Limit the number of digits to enter
+        degreesTxt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(3)});
+        minutesTxt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(2)});
+
+
+        // Limit the number range to 0-59 for minutes and seconds fields
+        minutesTxt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "59")});
+        secondsTxt.setFilters(new DoubleRangeInputFilter[]{new DoubleRangeInputFilter(0.0, 59.9)});
+
+        //Limit Seconds to two figures before decimal place and one after decimal place
+        secondsTxt.addTextChangedListener(new CustomTextWatcher(secondsTxt));
 
         // Inflate the layout for this fragment
         return view;

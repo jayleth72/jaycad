@@ -2,7 +2,8 @@ package com.applications.jay_letheby.jaycad.HelperClasses;
 
 import android.text.InputFilter;
 import android.text.Spanned;
-import android.widget.Toast;
+import android.util.Log;
+
 /**
  * Created by jay_the_superwarrior on 22/01/2017.
  * This is used to set a min and max value on EditText Fields
@@ -30,7 +31,9 @@ public class InputFilterMinMax implements InputFilter {
             if (isInRange(min, max, input))
                 return null;
 
-        } catch (NumberFormatException nfe) { }
+        } catch (NumberFormatException nfe) {
+            Log.wtf("Number Format Exception", "Error in InputFilterMinMax class");
+        }
         return "";
     }
 

@@ -1,7 +1,6 @@
 package com.applications.jay_letheby.jaycad.HelperClasses;
 
 import java.math.BigDecimal;
-import com.applications.jay_letheby.jaycad.HelperClasses.DecimalUtils;
 import android.util.Log;
 
 /**
@@ -82,16 +81,17 @@ public class Angle {
                 setMinutes(0);
 
             if(sec.length() > 0) {
-                //setSeconds(Integer.parseInt(sec));
                 setDecimalSeconds(Double.parseDouble(sec));
+                // round to nearest whole second
+                this.seconds = (int) Math.round(decimalSeconds);
             } else
                 setSeconds(0);
 
             convertDegMinSecToDecimal();
         }
         catch (NumberFormatException e) {
-            // TODO : error message here
-            Log.v("fuck","shit");
+
+            Log.wtf("Number Format error","Error setting Degrees, Minutes and Seconds for Angle Object");
             return;
         }
     }
@@ -117,7 +117,7 @@ public class Angle {
     private void convertDegMinSecToDecimal (){
         // Converts Deg Min Second to decimal degrees
 
-        decimalAngle = this.degrees + ((double)this.minutes/60) + ((double)this.seconds/3600);
+        decimalAngle = this.degrees + ((double)this.minutes/60) + ((double)this.decimalSeconds/3600);
         decimalAngle  = DecimalUtils.round(decimalAngle, 5);
     }
 
@@ -133,7 +133,7 @@ public class Angle {
 
             // Calculate seconds
             double theSeconds = ((calcMinutesValue - (double)minutes) * 60);
-            BigDecimal roundSeconds = new BigDecimal(theSeconds).setScale(2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal roundSeconds = new BigDecimal(theSeconds).setScale(1, BigDecimal.ROUND_HALF_UP);
             this.decimalSeconds = roundSeconds.doubleValue();
             // round to nearest whole number
             this.seconds = (int) Math.round(decimalSeconds);
