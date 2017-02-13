@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -211,6 +212,7 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
           else if (chosenBtn == clearStackBtn) {
             lengthStackTxtView.setText("");
             runningTotalTxtView.setText("");
+            runningTotal = 0.0;
         }
     }
 
@@ -241,12 +243,12 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
                     result = converter.lengthConverter(Converter.LengthConversionOperation.FEET_TO_METRES,
                                 Double.parseDouble(convertFeetToDecimalFeet(convertMeasure, inchMeasure, fractionalInchMeasure)));
                     addToStack(roundResult(result, 3));
-                    keepRunningTotal(result, 0);
+                    keepRunningTotal(roundResult(result, 3), 0);
                     break;
                 case 1:
                     // Metres to feet
                     result = converter.lengthConverter(Converter.LengthConversionOperation.METRES_TO_FEET, Double.parseDouble(convertMeasure));
-                    keepRunningTotal(result, 1);
+                    keepRunningTotal(roundResult(result, 3), 1);
                     result = convertDecimalFeet(result);
                     addToStack(result);
                     break;
@@ -254,13 +256,13 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
                     // Links to Metres
                     result = converter.lengthConverter(Converter.LengthConversionOperation.LINKS_TO_METRES, Double.parseDouble(convertMeasure));
                     addToStack(roundResult(result, 3));
-                    keepRunningTotal(result, 2);
+                    keepRunningTotal(roundResult(result, 3), 2);
                     break;
                 case 3:
                     // Metres to Links
                     result = converter.lengthConverter(Converter.LengthConversionOperation.METRES_TO_LINKS, Double.parseDouble(convertMeasure));
                     addToStack(roundResult(result, 3));
-                    keepRunningTotal(result, 3);
+                    keepRunningTotal(roundResult(result, 3), 3);
                     break;
                 default:
                     // error
@@ -478,7 +480,7 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
 
         }
         catch (NumberFormatException e) {
-            // TODO : put error message here
+            Log.wtf("Number Format Exception", "Error with LengthConversionFragment.keepRunningTotal");
         }
     }
 
@@ -506,7 +508,7 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
 
         }
         catch (NumberFormatException e) {
-            nonNumericalDataEntered();
+            Log.wtf("Number Format Exception", "Error with LengthConversionFragment.convertFeetToDecimalFeet");
         }
 
         return Double.toString(decimalFeet);
@@ -542,7 +544,7 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
 
         }
         catch (NumberFormatException e) {
-            // TODO : put error message here
+            Log.wtf("Number Format Exception", "Error with LengthConversionFragment.converDecimalFeet");
 
         }
 
@@ -570,7 +572,7 @@ public class LengthConversionFragment extends Fragment implements View.OnClickLi
              roundedNumber = DecimalUtils.round(roundedNumber, roundTo);
          }
          catch (NumberFormatException e){
-             // TODO : put error message here
+             Log.wtf("Number Format Exception", "Error with LengthConversionFragment.roundResult");
 
          }
         return roundedNumber + "";

@@ -111,8 +111,6 @@ public class AngleConversionFragment extends Fragment implements View.OnClickLis
 
         // Limit the number range to 0-59 for minutes and seconds fields
         degreesMinutesTxt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "59")});
-        // TODO : fix rounding up to nearest second
-        //degreesSecondTxt.setFilters(new InputFilter[]{new InputFilterMinMax("0", "59")});
 
         mainMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -26,15 +26,15 @@
         It contains commonly used area and length conversion functions. Also available is a conversion function for
         angle data as well as angle addition and subtraction.</string>
     <string name="length_conversion_about_string">1. Conversions are rounded to 3 decimal places.\n\n
-        2. Running total consists of adding conversions, which have not been rounded, and then rounding the final result.\n\n
+        2. Running total consists of adding consecutive conversion operations.\n\n
         3. One foot = 0.3048 metres.\n\n
         4. 12 inches = 1 foot.\n\n
         5. \""FRAC\"" refers to fraction of an inch.  16th\'s of a inch are used in this application.\n\n
         6. One metre = 3.28084 feet. This is then converted to feet, inches and fractions of an inch\n\n
         7. One Link (Gunter Link) = 0.201168 metres.\n\n
-        8. One metre = 4.9709595959 Links.\n</string>
+        8. One metre = 4.970969 Links.\n</string>
     <string name="area_conversion_about_string">1. Conversions are rounded to 3 decimal places.\n\n
-        2. Running total consists of adding conversions, which have not been rounded, and then rounding the final result.\n\n
+        2. Running total consists of adding consecutive conversion operations.\n\n
         3. One Acre = .404686 Hectares.\n\n
         4. One Hectare = 2.4710538146717 Acres.\n\n
         5. 4.000000022144 roods = 1 Acre.\n\n
@@ -44,6 +44,13 @@
         3. Convert decimal angles to angles with degrees, minutes and seconds.\n\n</string>
     <string name="angle_add_subtract_about_string">1. Add 2 angles with degrees, minute and second data to each other.\n\n
         2. Subtract 2 angles with degrees, minute and second data to each others.\n\n</string>
+    <string name="disclaimer_string">The information contained in this mobile app ("JAYCAD") is for general information purposes only.
+                                       JayLeth Technologies assumes no responsibility for errors or omissions in the contents on this mobile application.
+                                     In no event shall JayLeth Technologies be liable for any special, direct, indirect, consequential, or
+                                     incidental damages or any damages whatsoever, whether in an action of contract, negligence or
+                                     other tort, arising out of or in connection with the use of the Mobile Application, "JAYCAD" or the contents of the
+                                     mobile application. JayLeth Technologies reserves the right to make additions, deletions, or modification to the
+                                     contents on the mobile application at any time without prior notice.</string>
     <string name="jaycorp_string">&#169; 2017 JayLeth Technologies</string>
 
     <!-- TODO: Remove or change this placeholder text -->

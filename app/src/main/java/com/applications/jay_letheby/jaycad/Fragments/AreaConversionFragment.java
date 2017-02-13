@@ -20,7 +20,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.util.Log;
+;
 
 import com.applications.jay_letheby.jaycad.Activities.MainActivity;
 import com.applications.jay_letheby.jaycad.HelperClasses.Converter;
@@ -210,6 +211,7 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
         else if (chosenBtn == clearStackBtn) {
             areaStackTxtView.setText("");
             runningTotalTxtView.setText("");
+            runningTotal = 0;
         }
     }
 
@@ -260,6 +262,7 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
                 changeResultsLabels("ACRES, ROODS & PERCHES");
                 break;
         }
+
     }
 
     @Override
@@ -299,6 +302,7 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
         convertFromTxt.setText("");
         roodTxt.setText("");
         perchTxt.setText("");
+
     }
 
     public void changeResultsLabels (String measurement) {
@@ -419,24 +423,24 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
                     // Acres to Hectares
                     result = converter.areaConverter(Converter.AreaConversionOperation.ACRES_TO_HECTARES, Double.parseDouble(convertMeasure));
                     addToStack(roundResult(result, 3));
-                    keepRunningTotal(result, 0);
+                    keepRunningTotal(roundResult(result, 3), 0);
                     break;
                 case 1:
                     // Hectares to Acres
                     result = converter.areaConverter(Converter.AreaConversionOperation.HECTARES_TO_ACRES, Double.parseDouble(convertMeasure));
                     addToStack(roundResult(result, 3));
-                    keepRunningTotal(result, 1);
+                    keepRunningTotal(roundResult(result, 3), 1);
                     break;
                 case 2:
                     // Acres, roods, perches to Hectares
                     result = converter.areaConverter(Converter.AreaConversionOperation.ACRES_TO_HECTARES, totalAcres(convertMeasure, roodMeasure, perchMeasure));
                     addToStack(roundResult(result, 3));
-                    keepRunningTotal(result, 2);
+                    keepRunningTotal(roundResult(result, 3), 2);
                     break;
                 case 3:
                     // Hectare to Acres, roods and perches
                     result = converter.areaConverter(Converter.AreaConversionOperation.HECTARES_TO_ACRES, Double.parseDouble(convertMeasure));
-                    keepRunningTotal(result, 3);
+                    keepRunningTotal(roundResult(result, 3), 3);
                     result = (convertDecimalAcres(result)).toString();
                     addToStack(result);
                     break;
@@ -464,8 +468,7 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
             roundedNumber = DecimalUtils.round(roundedNumber, roundTo);
         }
         catch (NumberFormatException e){
-            // TODO : put error message here
-
+            Log.wtf("Number Format Exception", "Error with AreaConversionFragment.roundResult");
         }
         return roundedNumber + "";
     }
@@ -489,7 +492,7 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
 
         }
         catch (NumberFormatException e) {
-            // TODO : put error message here
+            Log.wtf("Number Format Exception", "Error with AreaConversionFragment.keepRunningTotal");
         }
     }
 
@@ -506,7 +509,7 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
             roodToAcre = Double.parseDouble(roodMeasure) * 0.249999998616;
         }
         catch (NumberFormatException e) {
-            // TODO : put error message here
+            Log.wtf("Number Format Exception", "Error with AreaConversionFragment.convertRoodToAcres");
         }
 
         return roodToAcre;
@@ -519,7 +522,7 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
             perchToAcre = Double.parseDouble(perchMeasure) * 0.00625;
         }
         catch (NumberFormatException e) {
-            // TODO : put error message here
+            Log.wtf("Number Format Exception", "Error with AreaConversionFragment.convertPerchToAcre");
         }
 
         return perchToAcre;
@@ -536,7 +539,7 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
             totalAcres = acresMeasure + convertRoodToAcres(roods) + convertPerchToAcre(perches);
         }
         catch (NumberFormatException e) {
-            // TODO : put error message here
+            Log.wtf("Number Format Exception", "Error with AreaConversionFragment.totalAcres");
         }
         return totalAcres;
     }
@@ -570,7 +573,7 @@ public class AreaConversionFragment extends Fragment implements View.OnClickList
 
         }
         catch (NumberFormatException e) {
-            // TODO : put error message here
+            Log.wtf("Number Format Exception", "Error with AreaConversionFragment.convertDecimalAcres");
 
         }
 

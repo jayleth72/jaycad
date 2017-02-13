@@ -2,7 +2,7 @@ package com.applications.jay_letheby.jaycad.HelperClasses;
 
 import android.text.InputFilter;
 import android.text.Spanned;
-
+import android.util.Log;
 /**
  * Created by jay_the_superwarrior on 10/02/2017.
  */
@@ -28,7 +28,7 @@ public class DoubleRangeInputFilter  implements InputFilter {
                 return null;
             }
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+
         }
         return "";
     }

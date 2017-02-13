@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Main
                 BakeryFinderFragment bakeryFinderFragment = new BakeryFinderFragment();
                 fragmentToLoad  = bakeryFinderFragment;
                 break;
-            case "about":
+            case "about/legal":
                 AboutFragment aboutFragment = new AboutFragment();
                 fragmentToLoad  = aboutFragment;
                 break;

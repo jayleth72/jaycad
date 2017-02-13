@@ -34,7 +34,7 @@ public class Converter {
                 convertedMeasurement = measurementToConvert * 0.201168;
                 break;
             case METRES_TO_LINKS:
-                convertedMeasurement = measurementToConvert * 4.9709595959;
+                convertedMeasurement = measurementToConvert * 4.970969;
                 break;
         }
         // return result to 3 decimal places
@@ -50,7 +50,7 @@ public class Converter {
 
         switch (operation) {
             case HECTARES_TO_ACRES:
-                convertedMeasurement = measurementToConvert * 2.4710538146717;
+                convertedMeasurement = measurementToConvert * 2.471054;
                 break;
             case ACRES_TO_HECTARES:
                 convertedMeasurement = measurementToConvert * 0.404686;

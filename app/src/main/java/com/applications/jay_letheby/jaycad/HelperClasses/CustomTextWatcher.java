@@ -57,25 +57,25 @@ public class CustomTextWatcher implements TextWatcher {
 
                         String[] integerFractionStrings = ss.split("\\.");
 
-                        Log.v("Check SS ", ss);
+                        //Log.v("Check SS ", ss);
 
-                        Log.v("second string", "Found"
-                                + integerFractionStrings.length);
+                        //Log.v("second string", "Found"
+                                //+ integerFractionStrings.length);
 
                         if (integerFractionStrings.length > 1) {
 
-                            Log.v("integerFractionStrings",
-                                    integerFractionStrings[1]);
+                            //Log.v("integerFractionStrings",
+                                    //integerFractionStrings[1]);
 
                             if (integerFractionStrings[1].length() == 1
                                     && integerFractionStrings[1].charAt(0) == '0') {
 
                                 et.setText(ss);
 
-                                Log.v("second string", "size 1");
+                                //Log.v("second string", "size 1");
                             } else {
 
-                                Log.v("second string", "> 1");
+                                //Log.v("second string", "> 1");
 
                                 Double d = Double.parseDouble(ss);
                                 if (d != null) {
@@ -86,7 +86,7 @@ public class CustomTextWatcher implements TextWatcher {
                         }
                     } else {
 
-                        Log.v("First string", "No dot");
+                        //Log.v("First string", "No dot");
 
                         Double d = Double.parseDouble(ss);
                         if (d != null) {
@@ -99,7 +99,7 @@ public class CustomTextWatcher implements TextWatcher {
             }
         } else {
 
-            Log.v("second string", "size 1");
+            //Log.v("second string", "size 1");
             et.setText(tmp);
         }
         et.addTextChangedListener(this); // reset listener

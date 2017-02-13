@@ -32,7 +32,7 @@ public class InputFilterMinMax implements InputFilter {
                 return null;
 
         } catch (NumberFormatException nfe) {
-            Log.wtf("Number Format Exception", "Error in InputFilterMinMax class");
+
         }
         return "";
     }
